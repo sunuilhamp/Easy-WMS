@@ -22,11 +22,11 @@ class Logout extends MY_Controller
 
     public function index()
     {
-        $this->logout->where('id_user', $this->id_user)->delete();    // Hapus seluruh pesanan dari user
+        // $this->logout->where('id_user', $this->id_user)->delete();    // Hapus seluruh pesanan dari user
 
-        if ($this->logout->count() < 1) {  // Jika tabel pesanan kosong, reset index id_pesanan
-            $this->logout->resetIndex();
-        }
+        // if ($this->logout->count() < 1) {  // Jika tabel pesanan kosong, reset index id_pesanan
+        //     $this->logout->resetIndex();
+        // }
 
         $sess_data = ['id', 'nama', 'email', 'telefon', 'ktp', 'role', 'is_login'];
         $this->session->unset_userdata($sess_data);

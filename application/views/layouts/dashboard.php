@@ -92,7 +92,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center text-muted">
-                All Rights Reserved by PKL IFKasir Kelompok Inventory - Kasir - Pembukuan.
+                All Rights Reserved by Kelompok 1 FP Framework. Sunu & Amir.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

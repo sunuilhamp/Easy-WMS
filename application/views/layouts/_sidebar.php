@@ -17,52 +17,67 @@
 
                 <li class="list-divider"></li>
 
-                <!-- Submemu Kasir -->
-                <li class="nav-small-cap"><span class="hide-menu">Kasir</span></li>
+                <li class="nav-small-cap"><span class="hide-menu">Pendataan Barang</span></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('inv') ?>" aria-expanded="false">
+                        <i data-feather="package" class="feather-icon"></i>
+                        <span class="hide-menu">List Barang</span>
+                    </a>
+                </li>
+
+                <li class="list-divider"></li>
+
+                <li class="nav-small-cap"><span class="hide-menu">Manajemen Supplier</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= base_url('cashier') ?>" aria-expanded="false">
                         <i data-feather="file-plus" class="feather-icon"></i>
-                        <span class="hide-menu">Pesan</span>
+                        <span class="hide-menu">Tambah Supplier</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('sales') ?>" aria-expanded="false">
+                        <i data-feather="truck" class="feather-icon"></i>
+                        <span class="hide-menu">List Supplier</span>
+                    </a>
+                </li>
+
+                <li class="list-divider"></li>
+
+                <!-- Submemu Kasir -->
+                <li class="nav-small-cap"><span class="hide-menu">Barang Masuk</span></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= base_url('cart') ?>" aria-expanded="false">
+                        <i data-feather="inbox" class="feather-icon"></i>
+                        <span class="hide-menu">Tambah Barang</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= base_url('cart') ?>" aria-expanded="false">
                         <i data-feather="shopping-cart" class="feather-icon"></i>
-                        <span class="hide-menu">Keranjang Pesanan</span>
+                        <span class="hide-menu">Keranjang Masuk</span>
                     </a>
                 </li>
-                <li class="sidebar-item"> 
+                <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="<?= base_url('sales') ?>" aria-expanded="false">
-                        <i data-feather="list" class="feather-icon"></i>
-                        <span class="hide-menu">List Penjualan</span>
+                        <i data-feather="file-text" class="feather-icon"></i>
+                        <span class="hide-menu">Catatan Masuk</span>
                     </a>
                 </li>
 
                 <li class="list-divider"></li>
 
                 <!-- Submemu Manajemen Inventory -->
-                <li class="nav-small-cap"><span class="hide-menu">Manajemen Inventory</span></li>
+                <li class="nav-small-cap"><span class="hide-menu">Barang Keluar</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="<?= base_url('inv') ?>" aria-expanded="false">
-                        <i data-feather="box" class="feather-icon"></i>
-                        <span class="hide-menu">Inventory</span>
+                        <i data-feather="shopping-cart" class="feather-icon"></i>
+                        <span class="hide-menu">Keranjang Keluar</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="<?= base_url('invloss') ?>" aria-expanded="false">
-                        <i data-feather="list" class="feather-icon"></i>
-                        <span class="hide-menu">Daftar Rugi</span>
-                    </a>
-                </li>
-
-                <li class="list-divider"></li>
-
-                <!-- Submemu Pembukuan -->
-                <li class="nav-small-cap"><span class="hide-menu">Pembukuan</span></li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="<?= base_url('pembukuan') ?>" aria-expanded="false">
-                        <i data-feather="book" class="feather-icon"></i>
-                        <span class="hide-menu">Pembukuan</span>
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('sales') ?>" aria-expanded="false">
+                        <i data-feather="file-text" class="feather-icon"></i>
+                        <span class="hide-menu">Catatan Keluar</span>
                     </a>
                 </li>
 
@@ -73,7 +88,7 @@
                 <li class="sidebar-item"> 
                     <a class="sidebar-link sidebar-link" href="<?= base_url('users') ?>" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
-                        <span class="hide-menu">Daftar Karyawan</span>
+                        <span class="hide-menu">List Karyawan</span>
                     </a>
                 </li>
                 <?php if ($this->session->userdata('role') == 'admin') : ?>
