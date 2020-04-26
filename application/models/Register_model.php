@@ -70,7 +70,7 @@ class Register_model extends MY_Model
             'password'  => hashEncrypt($input->password),
             'telefon'   => $input->telefon,
             'ktp'       => $input->ktp,
-            'role'      => 'kasir'
+            'role'      => 'staff'
         ];
 
         $user = $this->create($data);
