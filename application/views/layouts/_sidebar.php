@@ -29,13 +29,13 @@
 
                 <li class="nav-small-cap"><span class="hide-menu">Manajemen Supplier</span></li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('cashier') ?>" aria-expanded="false">
+                    <a class="sidebar-link" href="<?= base_url('supplier') ?>" aria-expanded="false">
                         <i data-feather="file-plus" class="feather-icon"></i>
                         <span class="hide-menu">Tambah Supplier</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="<?= base_url('sales') ?>" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('suppliers') ?>" aria-expanded="false">
                         <i data-feather="truck" class="feather-icon"></i>
                         <span class="hide-menu">List Supplier</span>
                     </a>
