@@ -10,8 +10,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Formulir Edit Data <?= $input->nama ?></h4>
-                    <form action="<?= base_url("users/edit/$input->id") ?>" method="POST">
-                        <?= form_hidden('id_user', $input->id) ?>
+                    <form action="<?= base_url("suppliers/edit/$input->id") ?>" method="POST">
+                        <?= form_hidden('id', $input->id) ?>
                         <div class="form-body">
                             <div class="form-group">
                                 <div class="row">

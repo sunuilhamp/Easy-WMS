@@ -50,14 +50,6 @@
                 $data['input'] = $data['content'];
             } else {
                 $data['input'] = (object) $this->input->post(null, true);
-
-                if ($data['input']->password !== '') {
-                    // Jika password tidak kosong, berati user mengubah password lalu encrypt
-                    $data['input']->password = hashEncrypt($data['input']->password);
-                } else {
-                    // Jika tidak kosong berati user tidak mengubah password
-                    $data['input']->password = $data['content']->password;
-                }
             }
 
             if (!$this->suppliers->validate()) {
@@ -82,7 +74,7 @@
         {
             $email      = $this->input->post('email');
             $id_user    = $this->input->post('id_user');
-            $user       = $this->users->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
+            $user       = $this->suppliers->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
 
             if ($user) {
                 if ($id_user == $user->id_user) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
