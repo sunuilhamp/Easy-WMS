@@ -16,7 +16,7 @@ class EasyTest extends CI_Controller {
         $id = "123455671";
         $mpdf = new \Mpdf\Mpdf();
 
-        $mpdf->SetHTMLHeader('<img src="' . base_url('assets/invoice/header.png') . '">');
+        $mpdf->SetHTMLHeader('<img src="' . base_url('assets/design/header.png') . '">');
         $html=
             '<div>
                 <br><br><br><br><br><br><br>
