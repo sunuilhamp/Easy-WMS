@@ -24,9 +24,9 @@ class Users extends MY_Controller
     {
         $this->session->unset_userdata('keyword');
         
-        $data['title']              = 'IFKasir - List Karyawan';
-        $data['breadcrumb_title']   = 'List Karyawan';
-        $data['breadcrumb_path']    = 'Manajemen Karyawan / List Karyawan';
+        $data['title']              = 'Easy WMS - List Staff';
+        $data['breadcrumb_title']   = 'List Staff';
+        $data['breadcrumb_path']    = 'Manajemen Staff / List Staff';
         $data['content']            = $this->users->paginate($page)->get();
         $data['total_rows']         = $this->users->count();
         $data['pagination']         = $this->users->makePagination(base_url('users'), 2, $data['total_rows']);
@@ -49,9 +49,9 @@ class Users extends MY_Controller
 
         $keyword = $this->session->userdata('keyword');
 
-        $data['title']              = 'IFKasir - Cari User';
-        $data['breadcrumb_title']   = "Daftar Karyawan";
-        $data['breadcrumb_path']    = "Daftar Karyawan / Cari / $keyword";
+        $data['title']              = 'Easy WMS - Cari Staff';
+        $data['breadcrumb_title']   = "Daftar Staff";
+        $data['breadcrumb_path']    = "Daftar Staff / Cari / $keyword";
         $data['content']            = $this->users->paginate($page)
                                         ->like('nama', $keyword)
                                         ->orLike('ktp', $keyword)
@@ -68,14 +68,14 @@ class Users extends MY_Controller
         $this->view($data);
     }
 
-    public function edit($id_user)
+    public function edit($id)
     {
         if ($this->session->userdata('id_user') != 'id_user' && $this->session->userdata('role') != 'admin') {
             $this->session->set_flashdata('error', 'Akses edit ditolak!');
             redirect(base_url('home'));
         }
 
-        $data['content'] = $this->users->where('id_user', $id_user)->first();
+        $data['content'] = $this->users->where('id', $id)->first();
 
         if (!$data['content']) {
             $this->session->set_flashdata('warning', 'Maaf data tidak ditemukan');
@@ -105,7 +105,7 @@ class Users extends MY_Controller
             return $this->view($data);
         }
 
-        if ($this->users->where('id_user', $id_user)->update($data['input'])) {   // Update data
+        if ($this->users->where('id', $id)->update($data['input'])) {   // Update data
             $this->session->set_flashdata('success', 'Data berhasil diubah');
         } else {
             $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
@@ -137,11 +137,11 @@ class Users extends MY_Controller
     public function unique_ktp()
     {
         $ktp        = $this->input->post('ktp');
-        $id_user    = $this->input->post('id_user');
+        $id    = $this->input->post('id');
         $user       = $this->users->where('ktp', $ktp)->first();
 
         if ($user) {
-            if ($id_user == $user->id_user) {  // Keperluan edit tidak perlu ganti ktp, jadi tidak masalah
+            if ($id == $user->id) {  // Keperluan edit tidak perlu ganti ktp, jadi tidak masalah
                 return true;
             }
 

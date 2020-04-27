@@ -84,18 +84,18 @@
                 <li class="list-divider"></li>
 
                 <!-- Submemu Manajemen Karyawan -->
-                <li class="nav-small-cap"><span class="hide-menu">Manajemen Karyawan</span></li>
+                <li class="nav-small-cap"><span class="hide-menu">Manajemen Staff</span></li>
                 <li class="sidebar-item"> 
                     <a class="sidebar-link sidebar-link" href="<?= base_url('users') ?>" aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
-                        <span class="hide-menu">List Karyawan</span>
+                        <span class="hide-menu">List Staff</span>
                     </a>
                 </li>
                 <?php if ($this->session->userdata('role') == 'admin') : ?>
                     <li class="sidebar-item"> 
                         <a class="sidebar-link sidebar-link" href="<?= base_url('register') ?>" aria-expanded="false">
                             <i data-feather="user-plus" class="feather-icon"></i>
-                            <span class="hide-menu">Register Karyawan</span>
+                            <span class="hide-menu">Register Staff</span>
                         </a>
                     </li>
                 <?php endif ?>

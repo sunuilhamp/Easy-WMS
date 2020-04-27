@@ -10,8 +10,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Formulir Edit Data <?= $input->nama ?></h4>
-                    <form action="<?= base_url("users/edit/$input->id_user") ?>" method="POST">
-                        <?= form_hidden('id_user', $input->id_user) ?>
+                    <form action="<?= base_url("users/edit/$input->id") ?>" method="POST">
+                        <?= form_hidden('id', $input->id) ?>
                         <div class="form-body">
                             <div class="form-group">
                                 <div class="row">
@@ -135,7 +135,7 @@
                                                     </div>
                                                     <select class="form-control" name="role" id="role-options">
                                                         <option value="admin" <?= $input->role == 'admin' ? 'selected' : '' ?>>Admin</option>
-                                                        <option value="kasir" <?= $input->role == 'kasir' ? 'selected' : '' ?>>Kasir</option>
+                                                        <option value="staff" <?= $input->role == 'staff' ? 'selected' : '' ?>>Staff</option>
                                                     </select>
                                                 </div>
                                             </div>

@@ -46,14 +46,14 @@
                                                     <!-- Admin juga sebagai kasir -->
                                                     <button class="btn btn-primary rounded-circle btn-circle font-12" data-toggle="tooltip" data-placement="top" title="Administrator">ADM</button>
 
-                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Kasir">KSR</button>
+                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Kasir">STF</button>
                                                 </div>
                                             <?php else : ?>
                                                 <div class="popover-icon">
                                                     <!-- Elemen bantu -->
                                                     <button class="btn btn-white rounded-circle btn-circle font-12"></button>
 
-                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Kasir">KSR</button>
+                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Kasir">STF</button>
                                                 </div>
                                             <?php endif ?>
                                         </td>
@@ -68,7 +68,7 @@
                                         <!-- Hanya admin yang boleh melakukan aksi pada data -->
                                         <?php if ($this->session->userdata('role') == 'admin') : ?>
                                             <td class="border-top-0 text-center text-muted px-2 py-4">
-                                                <a href="<?= base_url("users/edit/$row->id_user") ?>" class="btn btn-sm">
+                                                <a href="<?= base_url("users/edit/$row->id") ?>" class="btn btn-sm">
                                                     <i class="fas fa-edit text-info"></i>
                                                 </a>
                                             </td>
