@@ -124,6 +124,9 @@
     <script src="<?= base_url('assets/extra-libs/c3/d3.min.js') ?>"></script>
     <script src="<?= base_url('assets/extra-libs/c3/c3.min.js') ?>"></script>
 
+    <!-- Alert Flash Message -->
+    <script src="<?= base_url('assets/js/sweetalert.min.js') ?>"></script>
+
     <!-- Grafik di dashboard -->
     <?php if ($this->uri->segment(1) == 'home') : ?>
         <script src="<?= base_url('assets/libs/chartist/chartist.min.js') ?>"></script>

@@ -4,7 +4,7 @@
     $error      = $this->session->flashdata('error');
     $warning    = $this->session->flashdata('warning');
 ?>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="<?= base_url('assets/js/sweetalert.min.js') ?>"></script>
 <?php if ($success) { ?>
     <script>
       swal("Berhasil!", "<?php echo $success ?>","success")

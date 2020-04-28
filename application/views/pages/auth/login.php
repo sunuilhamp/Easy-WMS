@@ -51,7 +51,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="text-dark" for="">Email</label>
-                                        <?= form_input(['type' => 'email', 'name' => 'email', 'value' => $input->email, 'class' => 'form-control', 'placeholder' => 'Masukan email anda', 'required' => true]) ?>
+                                        <?= form_input(['type' => 'email', 'name' => 'email', 'value' => $input->email, 'class' => 'form-control', 'placeholder' => 'Masukan email anda', 'required' => true, 'autofocus' => true]) ?>
                                         <?= form_error('email') ?>
                                     </div>
                                 </div>
