@@ -46,7 +46,7 @@
                 <!-- Submemu Kasir -->
                 <li class="nav-small-cap"><span class="hide-menu">Barang Masuk</span></li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('cart') ?>" aria-expanded="false">
+                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
                         <i data-feather="inbox" class="feather-icon"></i>
                         <span class="hide-menu">Tambah Barang</span>
                     </a>
@@ -105,7 +105,7 @@
                 <!-- Submemu Extra -->
                 <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
                 <li class="sidebar-item"> 
-                    <a class="sidebar-link sidebar-link" href="https://github.com/mramirid/IFKasir.git" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="https://github.com/sunudika/Easy-WMS.git" aria-expanded="false">
                         <i data-feather="github" class="feather-icon"></i>
                         <span class="hide-menu">Repository</span>
                     </a>
