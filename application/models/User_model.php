@@ -20,17 +20,27 @@ class User_model extends MY_Model
             [
                 'field' => 'nama',
                 'label' => 'Nama Lengkap',
-                'rules' => 'trim|required'
+                'rules' => 'trim|required',
+                'errors' => [
+                    'required' => '<h6>%s harus diisi.</h6>'
+                ]
             ],
             [
                 'field' => 'email',
                 'label' => 'E-Mail',
-                'rules' => 'trim|required|valid_email|callback_unique_email'
+                'rules' => 'trim|required|valid_email|callback_unique_email',
+                'errors' => [
+                    'required'    => '<h6>%s harus diisi.</h6>',
+                    'valid_email' => '<h6>%s harus email yang valid.</h6>'
+                ]
             ],
             [
                 'field' => 'telefon',
                 'label' => 'Nomor Telefon',
-                'rules' => 'trim|required'
+                'rules' => 'trim|required',
+                'errors' => [
+                    'required' => '<h6>%s harus diisi.</h6>'
+                ]
             ]
         ];
 

@@ -10,6 +10,17 @@ function getJumlahStaff()
 }
 
 /**
+ * Mendapatkan satuan barang
+ */
+function getItemUnits()
+{
+    $CI =& get_instance();
+    $CI->db->distinct();
+    $CI->db->select('satuan');
+    return $CI->db->get('barang')->result();
+}
+
+/**
  * Mendapatkan pendapatan bulan ini
  */
 function getTodayEarning()

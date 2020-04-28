@@ -19,7 +19,7 @@
 
                 <li class="nav-small-cap"><span class="hide-menu">Pendataan Barang</span></li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="<?= base_url('inv') ?>" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('items') ?>" aria-expanded="false">
                         <i data-feather="package" class="feather-icon"></i>
                         <span class="hide-menu">List Barang</span>
                     </a>
