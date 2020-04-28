@@ -3,7 +3,7 @@
 /**
  * Mendapatkan jumlah karyawan
  */
-function getJumlahKaryawan()
+function getJumlahStaff()
 {
     $CI =& get_instance();
     return $CI->db->get('user')->num_rows();
