@@ -14,9 +14,9 @@
                         <div class="col-lg-12">
                             <h5 class="d-inline text-dark">Filter satuan&nbsp;&#8594;&nbsp;</h5>
                             <span>
-                                <a href="<?= base_url('items') ?>" class="btn btn-rounded btn-dark mt-1 mb-1">Semua</a>
+                                <a href="<?= base_url('items') ?>" class="btn btn-rounded btn-outline-dark mt-1 mb-1">Semua</a>
                                 <?php foreach(getItemUnits() as $row) : ?>
-                                    <a href="<?= base_url('items/type/' . $row->satuan) ?>" class="btn btn-rounded btn-primary mt-1 mb-1"><?= ucfirst($row->satuan) ?></a>
+                                    <a href="<?= base_url('items/unit/' . $row->satuan) ?>" class="btn btn-rounded btn-outline-primary mt-1 mb-1"><?= ucfirst($row->satuan) ?></a>
                                 <?php endforeach ?>
                             </span>
                         </div>
@@ -25,8 +25,8 @@
                         <div class="col-lg-12">
                             <h5 class="d-inline text-dark">Filter ketersediaan&nbsp;&#8594;&nbsp;</h5>
                             <span>
-                                <a href="<?= base_url('items/availability/available') ?>" class="btn btn-rounded btn-success mt-1 mb-1">Ada</a>
-                                <a href="<?= base_url('items/availability/empty') ?>" class="btn btn-rounded btn-danger mt-1 mb-1">Kosong</a>
+                                <a href="<?= base_url('items/availability/available') ?>" class="btn btn-rounded btn-outline-success mt-1 mb-1">Ada</a>
+                                <a href="<?= base_url('items/availability/empty') ?>" class="btn btn-rounded btn-outline-danger mt-1 mb-1">Kosong</a>
                             </span>
                         </div>
                     </div>

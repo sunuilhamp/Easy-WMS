@@ -1,18 +1,18 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Controller List Barang
  */
-class Items extends MY_Controller 
+class Items extends MY_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        
+
         $is_login = $this->session->userdata('is_login');
-        
+
         if (!$is_login) {
             $this->session->set_flashdata('warning', 'Anda belum login');
             redirect(base_url('login'));
@@ -43,7 +43,7 @@ class Items extends MY_Controller
      * Param 2: nilai pagination
      */
     public function unit($unit, $page = null)
-    {  
+    {
         $this->session->unset_userdata('keyword');
 
         $data['title']              = 'Easy WMS - List Barang';
@@ -52,13 +52,50 @@ class Items extends MY_Controller
         $data['content']            = $this->items->paginate($page)->where('satuan', $unit)->get();
         $data['total_rows']         = $this->items->where('satuan', $unit)->count();
         $data['pagination']         = $this->items->makePagination(
-            base_url("items/unit/$unit"), 4, $data['total_rows']
+            base_url("items/unit/$unit"),
+            4,
+            $data['total_rows']
         );
         $data['page']               = 'pages/items/index';
 
         $this->view($data);
     }
 
+    /**
+     * Klasifikasi berdasarkan satuan barang
+     * Param 1: satuan barang
+     * Param 2: nilai pagination
+     */
+    public function availability($param, $page = null)
+    {
+        $this->session->unset_userdata('keyword');
+
+        $data['title']              = 'Easy WMS - List Barang';
+        $data['breadcrumb_title']   = "List Barang";
+        $data['breadcrumb_path']    = 'Pendataan Barang / Ketersediaan / ' . ucfirst($param);
+        $data['page']               = 'pages/items/index';
+
+        if ($param === 'available') {
+            $data['content']    = $this->items->paginate($page)->where('qty >', 0)->get();
+            $data['total_rows'] = $this->items->where('qty >', 0)->count();
+        } else {
+            $data['content']    = $this->items->paginate($page)->where('qty', 0)->get();
+            $data['total_rows'] = $this->items->where('qty', 0)->count();
+        }
+
+        $data['pagination'] = $this->items->makePagination(
+            base_url("items/availability/$param"), 4, $data['total_rows']
+        );
+
+        $this->view($data);
+    }
+
+    /**
+     * Pencarian barang berdasarkan nama
+     * 
+     * Param berupa keyword yang diambil dari POST 
+     * setelah keyword diambil dari POST, keyword tersebut diset ke dalam session
+     */
     public function search($page = null)
     {
         if (isset($_POST['keyword'])) {

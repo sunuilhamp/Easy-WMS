@@ -63,10 +63,10 @@
                 <!-- Search -->
                 <!-- ============================================================== -->
                 <!-- Menu Pesan menampilkan search box -->
-                <?php if ($this->uri->segment(1) == 'cashier') : ?>
+                <?php if ($this->uri->segment(1) == 'items') : ?>
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link">
-                            <form action="<?= base_url('cashier/search') ?>" method="POST">
+                            <form action="<?= base_url('items/search') ?>" method="POST">
                                 <div class="customize-input">
                                     <input name="keyword" class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search" value="<?= $this->session->userdata('keyword') ?>">
                                     <i class="form-control-icon" data-feather="search"></i>
