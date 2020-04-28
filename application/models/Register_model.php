@@ -23,7 +23,10 @@ class Register_model extends MY_Model
             [
                 'field' => 'nama',
                 'label' => 'Nama Lengkap',
-                'rules' => 'trim|required'
+                'rules' => 'trim|required',
+                'errors' => [
+                    'required' => '<h6>%s harus diisi.</h6>'
+                ]
             ],
             [
                 'field' => 'email',
@@ -38,19 +41,24 @@ class Register_model extends MY_Model
                 'label' => 'Password',
                 'rules' => 'required|min_length[4]',
                 'errors' => [
+                    'required'   => '<h6>%s harus diisi.</h6>',
                     'min_length' => '<h6>%s minimal 4 karakter.</h6>'
                 ]
             ],
             [
                 'field' => 'telefon',
                 'label' => 'Nomor Telefon',
-                'rules' => 'trim|required'
+                'rules' => 'trim|required',
+                'errors' => [
+                    'required' => '<h6>%s harus diisi.</h6>'
+                ]
             ],
             [
                 'field' => 'ktp',
                 'label' => 'Nomor KTP',
                 'rules' => 'trim|required|is_unique[user.ktp]',
                 'errors' => [
+                    'required'  => '<h6>%s harus diisi.</h6>',
                     'is_unique' => '<h6>%s sudah digunakan.</h6>'
                 ]
             ],
