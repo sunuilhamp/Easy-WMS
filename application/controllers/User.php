@@ -23,25 +23,25 @@ class User extends MY_Controller
     {
         $this->session->unset_userdata('keyword');
 
-        $id_user = $this->session->userdata('id_user');
+        $id = $this->session->userdata('id_user');
         
-        $data['title']              = 'IFKasir - Profile';
+        $data['title']              = 'Easy WMS - Profile';
         $data['breadcrumb_title']   = 'Profile';
         $data['breadcrumb_path']    = 'Profile';
-        $data['content']            = $this->user->where('id_user', $id_user)->first();
+        $data['content']            = $this->user->where('id', $id)->first();
         $data['page']               = 'pages/user/index';
-        
+
         $this->view($data);
     }
 
-    public function edit($id_user)
+    public function edit($id)
     {
-        if ($this->session->userdata('id_user') != $id_user) {
+        if ($this->session->userdata('id_user') != $id) {
             $this->session->set_flashdata('error', 'Akses ditolak!');
             redirect(base_url('home'));
         }
 
-        $data['content'] = $this->user->where('id_user', $id_user)->first();
+        $data['content'] = $this->user->where('id', $id)->first();
 
         // print_r($data['content']); exit;
 
@@ -65,7 +65,7 @@ class User extends MY_Controller
         }
 
         if (!$this->user->validate()) {
-            $data['title']              = 'IFKasir - Edit Profile';
+            $data['title']              = 'Easy WMS - Edit Profile';
             $data['page']               = 'pages/user/edit';
             $data['breadcrumb_title']   = 'Edit Profile';
             $data['breadcrumb_path']    = "Profile / Edit Profile / " . $data['input']->nama;
@@ -73,9 +73,9 @@ class User extends MY_Controller
             return $this->view($data);
         }
 
-        if ($this->user->where('id_user', $id_user)->update($data['input'])) {   // Update data
+        if ($this->user->where('id', $id)->update($data['input'])) {   // Update data
             // Perbaharui data di session
-            $sess_data = (array) $this->user->where('id_user', $id_user)->first();
+            $sess_data = (array) $this->user->where('id', $id)->first();
             $this->session->set_userdata($sess_data);
 
             $this->session->set_flashdata('success', 'Data berhasil diubah');
@@ -89,11 +89,11 @@ class User extends MY_Controller
     public function unique_email()
     {
         $email      = $this->input->post('email');
-        $id_user    = $this->input->post('id_user');
+        $id     = $this->input->post('id');
         $user       = $this->user->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
 
         if ($user) {
-            if ($id_user == $user->id_user) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
+            if ($id == $user->id) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
                 return true;
             }
 

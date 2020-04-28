@@ -117,11 +117,11 @@ class Users extends MY_Controller
     public function unique_email()
     {
         $email      = $this->input->post('email');
-        $id_user    = $this->input->post('id_user');
+        $id    = $this->input->post('id');
         $user       = $this->users->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
 
         if ($user) {
-            if ($id_user == $user->id_user) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
+            if ($id == $user->id) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
                 return true;
             }
 
@@ -137,7 +137,7 @@ class Users extends MY_Controller
     public function unique_ktp()
     {
         $ktp        = $this->input->post('ktp');
-        $id    = $this->input->post('id');
+        $id         = $this->input->post('id');
         $user       = $this->users->where('ktp', $ktp)->first();
 
         if ($user) {

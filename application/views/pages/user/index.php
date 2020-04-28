@@ -117,7 +117,7 @@
                         </div>
                         <div class="form-actions">
                             <div class="text-right">
-                                <a href="<?= base_url("user/edit/$content->id_user") ?>" class="btn btn-info">Ubah Profile</a>
+                                <a href="<?= base_url("user/edit/$content->id") ?>" class="btn btn-info">Ubah Profile</a>
                             </div>
                         </div>
                     </form>

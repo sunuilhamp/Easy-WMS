@@ -41,7 +41,7 @@ class Login_model extends MY_Model
         if (!empty($query) && hashEncryptVerify($input->password, $query->password)) {
             // Jika user ada & password sama, maka buat session
             $sess_data = [
-                'id_user'   => $query->id_user,
+                'id_user'   => $query->id,
                 'nama'      => $query->nama,
                 'email'     => $query->email,
                 'telefon'   => $query->telefon,
