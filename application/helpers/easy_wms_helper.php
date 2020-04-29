@@ -15,6 +15,7 @@ function getJumlahStaff()
 function getUnits()
 {
     $CI =& get_instance();
+    $CI->db->where('status', 'valid');
     return $CI->db->get('satuan')->result();
 }
 

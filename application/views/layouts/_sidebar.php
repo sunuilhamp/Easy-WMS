@@ -31,13 +31,13 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
+                    <a class="sidebar-link" href="<?= base_url('unit') ?>" aria-expanded="false">
                         <i data-feather="plus-square" class="feather-icon"></i>
                         <span class="hide-menu">Tambah Satuan</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
+                    <a class="sidebar-link" href="<?= base_url('units') ?>" aria-expanded="false">
                         <i data-feather="box" class="feather-icon"></i>
                         <span class="hide-menu">List Satuan</span>
                     </a>
