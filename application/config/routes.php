@@ -53,6 +53,9 @@ $route['default_controller']    = 'login';
 $route['404_override']          = '';
 $route['translate_uri_dashes']  = FALSE;
 
-$route['items/(:num)']  = 'items/index/$1';
-$route['users/(:num)']  = 'users/index/$1';
-$route['sales/(:num)']  = 'sales/index/$1';
+$route['items/(:num)']      = 'items/index/$1';
+$route['units/(:num)']      = 'units/index/$1';
+$route['suppliers/(:num)']  = 'suppliers/index/$1';
+$route['users/(:num)']      = 'users/index/$1';
+$route['inputs/(:num)']     = 'inputs/index/$1';
+$route['outputs/(:num)']    = 'outputs/index/$1';
