@@ -17,7 +17,7 @@ class Units_model extends MY_Model
             [
                 'field' => 'nama',
                 'label' => 'Nama Satuan',
-                'rules' => 'trim|required',
+                'rules' => 'trim|required|callback_unique_satuan',
                 'errors' => [
                     'required' => '<h6>%s harus diisi.</h6>'
                 ]

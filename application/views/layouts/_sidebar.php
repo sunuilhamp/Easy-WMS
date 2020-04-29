@@ -18,24 +18,28 @@
                 <li class="list-divider"></li>
 
                 <li class="nav-small-cap"><span class="hide-menu">Manajemen Barang</span></li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
-                        <i data-feather="inbox" class="feather-icon"></i>
-                        <span class="hide-menu">Tambah Barang</span>
-                    </a>
-                </li>
+                <?php if ($this->session->userdata('role') == 'admin') : ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
+                            <i data-feather="inbox" class="feather-icon"></i>
+                            <span class="hide-menu">Register Barang</span>
+                        </a>
+                    </li>
+                <?php endif ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="<?= base_url('items') ?>" aria-expanded="false">
                         <i data-feather="package" class="feather-icon"></i>
                         <span class="hide-menu">List Barang</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('unit') ?>" aria-expanded="false">
-                        <i data-feather="plus-square" class="feather-icon"></i>
-                        <span class="hide-menu">Tambah Satuan</span>
-                    </a>
-                </li>
+                <?php if ($this->session->userdata('role') == 'admin') : ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= base_url('unit') ?>" aria-expanded="false">
+                            <i data-feather="plus-square" class="feather-icon"></i>
+                            <span class="hide-menu">Tambah Satuan</span>
+                        </a>
+                    </li>
+                <?php endif ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= base_url('units') ?>" aria-expanded="false">
                         <i data-feather="box" class="feather-icon"></i>
@@ -46,12 +50,14 @@
                 <li class="list-divider"></li>
 
                 <li class="nav-small-cap"><span class="hide-menu">Manajemen Supplier</span></li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('supplier') ?>" aria-expanded="false">
-                        <i data-feather="file-plus" class="feather-icon"></i>
-                        <span class="hide-menu">Tambah Supplier</span>
-                    </a>
-                </li>
+                <?php if ($this->session->userdata('role') == 'admin') : ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= base_url('supplier') ?>" aria-expanded="false">
+                            <i data-feather="file-plus" class="feather-icon"></i>
+                            <span class="hide-menu">Tambah Supplier</span>
+                        </a>
+                    </li>
+                <?php endif ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="<?= base_url('suppliers') ?>" aria-expanded="false">
                         <i data-feather="truck" class="feather-icon"></i>

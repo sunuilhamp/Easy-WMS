@@ -22,6 +22,13 @@ class Units extends MY_Controller
 
     public function index($page = null)
     {
+        $role = $this->session->userdata('role');
+        if ($role != 'admin') { 
+            $this->session->set_flashdata('warning', 'Anda tidak memiliki akses ke menu registrasi');
+            redirect(base_url('home'));
+            return;
+        }
+
         $this->session->unset_userdata('keyword');
         
         $data['title']              = 'Easy WMS - List Satuan';
@@ -69,11 +76,11 @@ class Units extends MY_Controller
     }
 
     /**
-     * Edit data user oleh admin
+     * Edit data satuan oleh admin
      */
     public function edit($id)
     {
-        if ($this->session->userdata('id_user') != 'id_user' && $this->session->userdata('role') != 'admin') {
+        if ($this->session->userdata('role') != 'admin') {
             $this->session->set_flashdata('error', 'Akses edit ditolak!');
             redirect(base_url('home'));
         }
@@ -89,27 +96,19 @@ class Units extends MY_Controller
             $data['input'] = $data['content'];
         } else {
             $data['input'] = (object) $this->input->post(null, true);
-
-            if ($data['input']->password !== '') {
-                // Jika password tidak kosong, berati user mengubah password lalu encrypt
-                $data['input']->password = hashEncrypt($data['input']->password);
-            } else {
-                // Jika tidak kosong berati user tidak mengubah password
-                $data['input']->password = $data['content']->password;
-            }
         }
 
         if (!$this->units->validate()) {
-            $data['title']              = 'IFKasir - Edit Keryawan';
+            $data['title']              = 'IFKasir - Edit Satuan Barang';
             $data['page']               = 'pages/units/edit';
-            $data['breadcrumb_title']   = 'Edit Data Karyawan';
-            $data['breadcrumb_path']    = "Manajemen Karyawan / Edit Data Karyawan / " . $data['input']->nama;
+            $data['breadcrumb_title']   = 'Edit Satuan Barang';
+            $data['breadcrumb_path']    = "Manajemen Barang / Edit Satuan Barang / " . $data['input']->nama;
 
             return $this->view($data);
         }
 
         if ($this->units->where('id', $id)->update($data['input'])) {   // Update data
-            $this->session->set_flashdata('success', 'Data berhasil diubah');
+            $this->session->set_flashdata('success', 'Data satuan berhasil diubah');
         } else {
             $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
         }
@@ -117,40 +116,16 @@ class Units extends MY_Controller
         redirect(base_url('units'));
     }
 
-    public function unique_email()
+    public function unique_satuan()
     {
-        $email      = $this->input->post('email');
-        $id    = $this->input->post('id');
-        $user       = $this->units->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
+        $nama = $this->input->post('nama');
+        $id   = $this->input->post('id');
+        $unit = $this->units->where('nama', $nama)->first();
 
-        if ($user) {
-            if ($id == $user->id) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
-                return true;
-            }
-
-            // Jika terdapat suatu nilai pada $user, berikan pesan error pertanda email sudah ada di db
+        if ($unit) {
+            if ($id == $unit->id) return true;
             $this->load->library('form_validation');
-            $this->form_validation->set_message('unique_email', '%s sudah digunakan');
-            return false;
-        }
-
-        return true;
-    }
-
-    public function unique_ktp()
-    {
-        $ktp        = $this->input->post('ktp');
-        $id         = $this->input->post('id');
-        $user       = $this->units->where('ktp', $ktp)->first();
-
-        if ($user) {
-            if ($id == $user->id) {  // Keperluan edit tidak perlu ganti ktp, jadi tidak masalah
-                return true;
-            }
-
-            // Jika terdapat suatu nilai pada $user, berikan pesan error pertanda ktp sudah ada di db
-            $this->load->library('form_validation');
-            $this->form_validation->set_message('unique_ktp', '%s sudah digunakan');
+            $this->form_validation->set_message('unique_satuan', '%s sudah digunakan');
             return false;
         }
 

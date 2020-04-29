@@ -22,6 +22,12 @@ class Supplier extends MY_Controller
 
     public function index()
     {
+        if ($this->session->userdata('role') != 'admin') { 
+            $this->session->set_flashdata('warning', 'Anda tidak memiliki akses ke menu registrasi');
+            redirect(base_url('home'));
+            return;
+        }
+
         if (!$_POST) {
             $input = (object) $this->supplier->getDefaultValues();
         } else {

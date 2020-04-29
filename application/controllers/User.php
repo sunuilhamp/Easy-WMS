@@ -88,9 +88,9 @@ class User extends MY_Controller
 
     public function unique_email()
     {
-        $email      = $this->input->post('email');
+        $email  = $this->input->post('email');
         $id     = $this->input->post('id');
-        $user       = $this->user->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
+        $user   = $this->user->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
 
         if ($user) {
             if ($id == $user->id) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah

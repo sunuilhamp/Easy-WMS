@@ -19,10 +19,8 @@ class Register extends MY_Controller
 
     public function index()
     {
-        $role = $this->session->userdata('role');
-
         // Cek role ketika mengakses menu registrasi
-        if ($role != 'admin') { 
+        if ($this->session->userdata('role') != 'admin') { 
             $this->session->set_flashdata('warning', 'Anda tidak memiliki akses ke menu registrasi');
             redirect(base_url('home'));
             return;
