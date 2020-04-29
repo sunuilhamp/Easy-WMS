@@ -10,6 +10,35 @@ function getJumlahStaff()
 }
 
 /**
+ * Mendapatkan jumlah supplier
+ */
+function getJumlahSupplier()
+{
+    $CI =& get_instance();
+    return $CI->db->get('supplier')->num_rows();
+}
+
+/**
+ * Mendapatkan jumlah supplier
+ */
+function getJumlahBarang()
+{
+    $CI =& get_instance();
+    return $CI->db->where('qty !=', 0)->get('barang')->num_rows();
+}
+
+/**
+ * Mendapatkan jumlah stok
+ */
+function getJumlahStok()
+{
+    $CI =& get_instance();
+    $CI->db->select_sum('qty');
+    $result = $CI->db->get('barang')->row();  
+    return $result->qty;
+}
+
+/**
  * Mendapatkan seluruh list satuan barang
  */
 function getUnits()

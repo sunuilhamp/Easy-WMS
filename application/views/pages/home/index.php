@@ -26,9 +26,9 @@
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">10</h2>
+                                        <h2 class="text-dark mb-1 font-weight-medium"><?= getJumlahBarang(); ?></h2>
                                     </div>
-                                    <a href="<?= base_url('') ?>" class="btn"><h4 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Barang</h4></a>
+                                    <a href="<?= base_url('items') ?>" class="btn"><h4 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Barang</h4></a>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0">
                                     <span class="opacity-7 text-muted"><i class="fas fa-boxes"></i></span>
@@ -41,7 +41,7 @@
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                         <div class="d-inline-flex align-items-center">
-                                            <h2 class="text-dark mb-1 font-weight-medium">10</h2>
+                                            <h2 class="text-dark mb-1 font-weight-medium"><?= getJumlahSupplier(); ?></h2>
                                         </div>
                                         <a href="<?= base_url('suppliers') ?>" class="btn"><h4 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Supplier</h4></a>
                                 </div>
@@ -56,9 +56,9 @@
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">10</h2>
+                                        <h2 class="text-dark mb-1 font-weight-medium"><?= getJumlahStok(); ?></h2>
                                     </div>
-                                    <a href="<?= base_url('') ?>" class="btn"><h4 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Stok</h4></a>
+                                    <a href="<?= base_url('items') ?>" class="btn"><h4 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Stok</h4></a>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0">
                                     <span class="opacity-7 text-muted"><i class="fas fa-box"></i></span>
