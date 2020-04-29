@@ -15,8 +15,8 @@
                             <h5 class="d-inline text-dark">Filter satuan&nbsp;&#8594;&nbsp;</h5>
                             <span>
                                 <a href="<?= base_url('items') ?>" class="btn btn-rounded btn-dark mt-1 mb-1">Semua</a>
-                                <?php foreach(getItemUnits() as $row) : ?>
-                                    <a href="<?= base_url('items/unit/' . $row->satuan) ?>" class="btn btn-rounded btn-primary mt-1 mb-1"><?= ucfirst($row->satuan) ?></a>
+                                <?php foreach(getUnits() as $unit) : ?>
+                                    <a href="<?= base_url('items/unit/' . $unit->id) ?>" class="btn btn-rounded btn-primary mt-1 mb-1"><?= ucfirst($unit->nama) ?></a>
                                 <?php endforeach ?>
                             </span>
                         </div>
@@ -44,11 +44,12 @@
                         <h4 class="mb-0 text-white">Stok <?= $row->qty > 0 ? 'Tersedia' : 'Kosong' ?></h4>
                     </div>
                     <div class="card-body">
-                        <h3 class="card-title"><?= $row->nama ?></h3>
+                        <h3 class="card-title"><?= $row->nama_barang ?></h3>
                         <p class="card-text"><strong>Rp.<?= number_format($row->harga, 0, ',', '.') ?>,-</strong></p>
-                        <p class="card-text">Kuantitas barang: <?= $row->qty . ' ' . ucfirst($row->satuan) ?></p>
+                        <p class="card-text">Kuantitas barang: <?= $row->qty . ' ' . ucfirst($row->nama_satuan) ?></p>
+                        <p class="card-text">Supplier: <?= $row->nama_supplier ?></p>
                         <form action="<?= base_url('cart/add') ?>" method="POST">
-                            <input type="hidden" name="id_barang" value="<?= $row->id ?>">
+                            <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
                             <div class="input-group">
                                 <input type="number" name="qty" value="1" class="form-control">
                                 <div class="input-group-append">

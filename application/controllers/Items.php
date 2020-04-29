@@ -27,43 +27,56 @@ class Items extends MY_Controller
         $data['title']              = 'Easy WMS - List Barang';
         $data['breadcrumb_title']   = "List Barang";
         $data['breadcrumb_path']    = 'Pendataan Barang / List Barang';
-        $data['content']            = $this->items->paginate($page)->get();
+        $data['content']            = $this->items->select([
+                'barang.id AS id_barang', 'barang.nama AS nama_barang', 'qty', 'harga',
+                'supplier.nama AS nama_supplier', 'satuan.nama AS nama_satuan'
+            ])
+            ->join('supplier')
+            ->join('satuan')
+            ->paginate($page)
+            ->get();
         $data['total_rows']         = $this->items->count();
         $data['pagination']         = $this->items->makePagination(base_url('items'), 2, $data['total_rows']);
         $data['page']               = 'pages/items/index';
 
-        // print_r($data['content']); exit;
+        // print_r(getUnitName(1)); exit;
 
         $this->view($data);
     }
 
     /**
      * Klasifikasi berdasarkan satuan barang
-     * Param 1: satuan barang
+     * Param 1: id satuan barang
      * Param 2: nilai pagination
      */
-    public function unit($unit, $page = null)
+    public function unit($id_unit, $page = null)
     {
         $this->session->unset_userdata('keyword');
 
         $data['title']              = 'Easy WMS - List Barang';
         $data['breadcrumb_title']   = "List Barang";
-        $data['breadcrumb_path']    = 'Pendataan Barang / Tipe / ' . ucfirst($unit);
-        $data['content']            = $this->items->paginate($page)->where('satuan', $unit)->get();
-        $data['total_rows']         = $this->items->where('satuan', $unit)->count();
-        $data['pagination']         = $this->items->makePagination(
-            base_url("items/unit/$unit"),
-            4,
-            $data['total_rows']
+        $data['breadcrumb_path']    = 'Pendataan Barang / Tipe / ' . ucfirst(getUnitName($id_unit));
+        $data['content']            = $this->items->select([
+                'barang.id AS id_barang', 'barang.nama AS nama_barang', 'qty', 'harga',
+                'supplier.nama AS nama_supplier', 'satuan.nama AS nama_satuan'
+            ])
+            ->join('supplier')
+            ->join('satuan')
+            ->where('id_satuan', $id_unit)
+            ->paginate($page)
+            ->get();
+        $data['total_rows'] = $this->items->where('id_satuan', $id_unit)->count();
+        $data['pagination'] = $this->items->makePagination(
+            base_url("items/unit/$id_unit"), 4, $data['total_rows']
         );
-        $data['page']               = 'pages/items/index';
+        $data['page'] = 'pages/items/index';
 
         $this->view($data);
     }
 
     /**
-     * Klasifikasi berdasarkan satuan barang
-     * Param 1: satuan barang
+     * Menampilkan barang berdasarkan ketersediannya ada/kosong
+     * Param 1: string 'available' / 'empty'
      * Param 2: nilai pagination
      */
     public function availability($param, $page = null)
@@ -76,11 +89,24 @@ class Items extends MY_Controller
         $data['page']               = 'pages/items/index';
 
         if ($param === 'available') {
-            $data['content']    = $this->items->paginate($page)->where('qty >', 0)->get();
             $data['total_rows'] = $this->items->where('qty >', 0)->count();
+            $data['content']    = $this->items->paginate($page)->select([
+                    'barang.id AS id_barang', 'barang.nama AS nama_barang', 'qty', 'harga',
+                    'supplier.nama AS nama_supplier', 'satuan.nama AS nama_satuan'
+                ])
+                ->join('supplier')
+                ->join('satuan')
+                ->where('qty >', 0)
+                ->get();
         } else {
-            $data['content']    = $this->items->paginate($page)->where('qty', 0)->get();
             $data['total_rows'] = $this->items->where('qty', 0)->count();
+            $data['content']    = $this->items->paginate($page)->select([
+                    'barang.id AS id_barang', 'barang.nama AS nama_barang', 'qty', 'harga',
+                    'supplier.nama AS nama_supplier', 'satuan.nama AS nama_satuan'
+                ])
+                ->join('supplier')
+                ->join('satuan')
+                ->where('qty', 0)->get();
         }
 
         $data['pagination'] = $this->items->makePagination(
@@ -111,12 +137,20 @@ class Items extends MY_Controller
         $data['title']              = 'Easy WMS - List Barang';
         $data['breadcrumb_title']   = "List Barang";
         $data['breadcrumb_path']    = "Pendataan Barang / Search / $keyword";
-        $data['content']            = $this->items->paginate($page)->like('nama', $keyword)->get();
-        $data['total_rows']         = $this->items->like('nama', $keyword)->count();
-        $data['pagination']         = $this->items->makePagination(
+        $data['content'] = $this->items->select([
+                'barang.id AS id_barang', 'barang.nama AS nama_barang', 'qty', 'harga',
+                'supplier.nama AS nama_supplier', 'satuan.nama AS nama_satuan'
+            ])
+            ->join('supplier')
+            ->join('satuan')
+            ->like('barang.nama', $keyword)
+            ->paginate($page)
+            ->get();
+        $data['total_rows'] = $this->items->like('nama', $keyword)->count();
+        $data['pagination'] = $this->items->makePagination(
             base_url('items/search'), 3, $data['total_rows']
         );
-        $data['page']               = 'pages/items/index';
+        $data['page'] = 'pages/items/index';
 
         $this->view($data);
     }

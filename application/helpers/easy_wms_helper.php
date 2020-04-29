@@ -10,14 +10,32 @@ function getJumlahStaff()
 }
 
 /**
- * Mendapatkan satuan barang
+ * Mendapatkan seluruh list satuan barang
  */
-function getItemUnits()
+function getUnits()
 {
     $CI =& get_instance();
-    $CI->db->distinct();
-    $CI->db->select('satuan');
-    return $CI->db->get('barang')->result();
+    return $CI->db->get('satuan')->result();
+}
+
+/**
+ * Mendapatkan satuan barang berdasarkan id
+ */
+function getUnitName($id_satuan)
+{
+    $CI =& get_instance();
+    $CI->db->where('id', $id_satuan);
+    return $CI->db->get('satuan')->row()->nama;
+}
+
+/**
+ * Mendapatkan list supplier
+ */
+function getSuppliers()
+{
+    $CI =& get_instance();
+    $CI->db->where('status', 'aktif');
+    return $CI->db->get('supplier')->result();
 }
 
 /**

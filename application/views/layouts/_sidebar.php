@@ -17,11 +17,29 @@
 
                 <li class="list-divider"></li>
 
-                <li class="nav-small-cap"><span class="hide-menu">Pendataan Barang</span></li>
+                <li class="nav-small-cap"><span class="hide-menu">Manajemen Barang</span></li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
+                        <i data-feather="inbox" class="feather-icon"></i>
+                        <span class="hide-menu">Tambah Barang</span>
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="<?= base_url('items') ?>" aria-expanded="false">
                         <i data-feather="package" class="feather-icon"></i>
                         <span class="hide-menu">List Barang</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
+                        <i data-feather="plus-square" class="feather-icon"></i>
+                        <span class="hide-menu">Tambah Satuan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
+                        <i data-feather="box" class="feather-icon"></i>
+                        <span class="hide-menu">List Satuan</span>
                     </a>
                 </li>
 
@@ -45,12 +63,6 @@
 
                 <!-- Submemu Kasir -->
                 <li class="nav-small-cap"><span class="hide-menu">Barang Masuk</span></li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
-                        <i data-feather="inbox" class="feather-icon"></i>
-                        <span class="hide-menu">Tambah Barang</span>
-                    </a>
-                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= base_url('cart') ?>" aria-expanded="false">
                         <i data-feather="shopping-cart" class="feather-icon"></i>

@@ -3,9 +3,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * Controller Tambah Supplier
+ * Controller Tambah Barang
  */
-class Supplier extends MY_Controller
+class Item extends MY_Controller
 {
     public function __construct()
     {
@@ -22,36 +22,38 @@ class Supplier extends MY_Controller
 
     public function index()
     {
+        // print_r(getSuppliers()); exit;
+
         if (!$_POST) {
-            $input = (object) $this->supplier->getDefaultValues();
+            $input = (object) $this->item->getDefaultValues();
         } else {
             $input = (object) $this->input->post(null, true);
         }
 
-        if (!$this->supplier->validate()) {     // Jika validasi gagal maka arahkan ke form register lagi
-            $data['title'] = 'Register Supplier';
+        if (!$this->item->validate()) {
+            $data['title'] = 'Easy WMS - Tambah Barang';
             $data['input'] = $input;
-            $data['page']  = 'pages/supplier/index';
-            $data['breadcrumb_title']   = 'Register Supplier';
-            $data['breadcrumb_path']    = 'Manajemen Supplier / Register Supplier';
+            $data['page']  = 'pages/item/index';
+            $data['breadcrumb_title'] = 'Tambah Barang';
+            $data['breadcrumb_path']  = 'Barang Masuk / Tambah Barang';
 
             return $this->view($data);
         }
 
         // Input data
-        if ($this->supplier->run($input)) {
-            $this->session->set_flashdata('success', 'Berhasil melakukan registrasi supplier');
-            redirect(base_url('supplier'));
+        if ($this->item->run($input)) {
+            $this->session->set_flashdata('success', 'Barang berhasil ditambahkan');
+            redirect(base_url('item'));
         } else {
             $this->session->set_flashdata('error', 'Oops terjadi suatu kesalahan');
-            redirect(base_url('supplier'));
+            redirect(base_url('item'));
         }
     }
 
     public function reset()
     {
-        redirect(base_url('supplier'));
+        redirect(base_url('item'));
     }
 }
-    
-/* End of file Suppliers.php */
+
+/* End of file Item.php */

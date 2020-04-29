@@ -68,6 +68,9 @@ class Users extends MY_Controller
         $this->view($data);
     }
 
+    /**
+     * Edit data user oleh admin
+     */
     public function edit($id)
     {
         if ($this->session->userdata('id_user') != 'id_user' && $this->session->userdata('role') != 'admin') {

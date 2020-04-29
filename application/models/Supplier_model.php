@@ -55,7 +55,7 @@ class Supplier_model extends MY_Model
     }
 
     /**
-     * Melakukan insert user baru ke db
+     * Melakukan insert supplier baru ke db
      */
     public function run($input)
     {

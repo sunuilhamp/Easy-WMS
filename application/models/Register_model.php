@@ -81,7 +81,7 @@ class Register_model extends MY_Model
             'role'      => 'staff'
         ];
 
-        $user = $this->create($data);
+        $this->create($data);
 
         return true;
     }
