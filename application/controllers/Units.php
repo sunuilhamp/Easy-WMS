@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Kontroller list user
  */
-class Users extends MY_Controller 
+class Units extends MY_Controller 
 {
     public function __construct()
     {
@@ -24,13 +24,13 @@ class Users extends MY_Controller
     {
         $this->session->unset_userdata('keyword');
         
-        $data['title']              = 'Easy WMS - List Staff';
-        $data['breadcrumb_title']   = 'List Staff';
-        $data['breadcrumb_path']    = 'Manajemen Staff / List Staff';
-        $data['content']            = $this->users->paginate($page)->get();
-        $data['total_rows']         = $this->users->count();
-        $data['pagination']         = $this->users->makePagination(base_url('users'), 2, $data['total_rows']);
-        $data['page']               = 'pages/users/index';
+        $data['title']              = 'Easy WMS - List Satuan';
+        $data['breadcrumb_title']   = 'List Satuan';
+        $data['breadcrumb_path']    = 'Manajemen Barang / List Satuan';
+        $data['content']            = $this->units->paginate($page)->get();
+        $data['total_rows']         = $this->units->count();
+        $data['pagination']         = $this->units->makePagination(base_url('units'), 2, $data['total_rows']);
+        $data['page']               = 'pages/units/index';
         
         $this->view($data);
     }
@@ -44,7 +44,7 @@ class Users extends MY_Controller
         $keyword = $this->session->userdata('keyword');
 
         if (empty($keyword)) {
-            redirect(base_url('users'));
+            redirect(base_url('units'));
         }
 
         $keyword = $this->session->userdata('keyword');
@@ -52,18 +52,18 @@ class Users extends MY_Controller
         $data['title']              = 'Easy WMS - Cari Staff';
         $data['breadcrumb_title']   = "Daftar Staff";
         $data['breadcrumb_path']    = "Daftar Staff / Cari / $keyword";
-        $data['content']            = $this->users->paginate($page)
+        $data['content']            = $this->units->paginate($page)
                                         ->like('nama', $keyword)
                                         ->orLike('ktp', $keyword)
                                         ->orLike('email', $keyword)
                                         ->paginate($page)
                                         ->get();
-        $data['total_rows']         = $this->users->like('nama', $keyword)
+        $data['total_rows']         = $this->units->like('nama', $keyword)
                                         ->orLike('ktp', $keyword)
                                         ->orLike('email', $keyword)
                                         ->count();
-        $data['pagination']         = $this->users->makePagination(base_url('users/search'), 3, $data['total_rows']);
-        $data['page']               = 'pages/users/index';
+        $data['pagination']         = $this->units->makePagination(base_url('units/search'), 3, $data['total_rows']);
+        $data['page']               = 'pages/units/index';
 
         $this->view($data);
     }
@@ -78,11 +78,11 @@ class Users extends MY_Controller
             redirect(base_url('home'));
         }
 
-        $data['content'] = $this->users->where('id', $id)->first();
+        $data['content'] = $this->units->where('id', $id)->first();
 
         if (!$data['content']) {
             $this->session->set_flashdata('warning', 'Maaf data tidak ditemukan');
-            redirect(base_url('users'));
+            redirect(base_url('units'));
         }
 
         if (!$_POST) {
@@ -99,29 +99,29 @@ class Users extends MY_Controller
             }
         }
 
-        if (!$this->users->validate()) {
+        if (!$this->units->validate()) {
             $data['title']              = 'IFKasir - Edit Keryawan';
-            $data['page']               = 'pages/users/edit';
+            $data['page']               = 'pages/units/edit';
             $data['breadcrumb_title']   = 'Edit Data Karyawan';
             $data['breadcrumb_path']    = "Manajemen Karyawan / Edit Data Karyawan / " . $data['input']->nama;
 
             return $this->view($data);
         }
 
-        if ($this->users->where('id', $id)->update($data['input'])) {   // Update data
+        if ($this->units->where('id', $id)->update($data['input'])) {   // Update data
             $this->session->set_flashdata('success', 'Data berhasil diubah');
         } else {
             $this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan');
         }
 
-        redirect(base_url('users'));
+        redirect(base_url('units'));
     }
 
     public function unique_email()
     {
         $email      = $this->input->post('email');
         $id    = $this->input->post('id');
-        $user       = $this->users->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
+        $user       = $this->units->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
 
         if ($user) {
             if ($id == $user->id) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
@@ -141,7 +141,7 @@ class Users extends MY_Controller
     {
         $ktp        = $this->input->post('ktp');
         $id         = $this->input->post('id');
-        $user       = $this->users->where('ktp', $ktp)->first();
+        $user       = $this->units->where('ktp', $ktp)->first();
 
         if ($user) {
             if ($id == $user->id) {  // Keperluan edit tidak perlu ganti ktp, jadi tidak masalah
@@ -158,4 +158,4 @@ class Users extends MY_Controller
     }
 }
 
-/* End of file Users.php */
+/* End of file Units.php */

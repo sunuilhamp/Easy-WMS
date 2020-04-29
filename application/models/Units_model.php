@@ -2,13 +2,13 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_model extends MY_Model 
+class Units_model extends MY_Model 
 {
+    protected $table = 'satuan';
+    
     public function getDefaultValues()
     {
-        return [
-            'nama' => ''
-        ];
+        return ['nama' => ''];
     }
 
     public function getValidationRules()
@@ -16,24 +16,7 @@ class User_model extends MY_Model
         $validationRules = [
             [
                 'field' => 'nama',
-                'label' => 'Nama Lengkap',
-                'rules' => 'trim|required',
-                'errors' => [
-                    'required' => '<h6>%s harus diisi.</h6>'
-                ]
-            ],
-            [
-                'field' => 'email',
-                'label' => 'E-Mail',
-                'rules' => 'trim|required|valid_email|callback_unique_email',
-                'errors' => [
-                    'required'    => '<h6>%s harus diisi.</h6>',
-                    'valid_email' => '<h6>%s harus email yang valid.</h6>'
-                ]
-            ],
-            [
-                'field' => 'telefon',
-                'label' => 'Nomor Telefon',
+                'label' => 'Nama Satuan',
                 'rules' => 'trim|required',
                 'errors' => [
                     'required' => '<h6>%s harus diisi.</h6>'
@@ -45,4 +28,4 @@ class User_model extends MY_Model
     }
 }
 
-/* End of file User_model.php */
+/* End of file Units_model.php */

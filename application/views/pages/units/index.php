@@ -16,7 +16,7 @@
                         <table class="table no-wrap v-middle mb-0">
                             <thead>
                                 <tr class="border-0">
-                                    <th class="border-0 font-14 font-weight-medium text-muted px-2">Nama</th>
+                                    <th class="border-0 font-14 font-weight-medium text-muted text-center px-2">Nama Satuan</th>
                                     <th class="border-0 font-14 font-weight-medium text-muted text-center">Status Satuan</th>
                                     <!-- Hanya admin yang boleh edit -->
                                     <?php if ($this->session->userdata('role') == 'admin') : ?>
@@ -27,9 +27,9 @@
                             <tbody>
                                 <?php foreach ($content as $row) : ?>
                                     <tr>
-                                        <td class="border-top-0 px-2 py-4"><?= $row->nama ?></td>
+                                        <td class="border-top-0 px-2 py-4 text-center"><?= $row->nama ?></td>
                                         <td class="border-top-0 text-center px-2 py-4">
-                                            <?php if ($row->status == 'aktif') : ?>
+                                            <?php if ($row->status == 'valid') : ?>
                                                 <i class="fa fa-circle text-success font-12" data-toggle="tooltip" data-placement="top" title="Valid"></i>
                                             <?php else : ?>
                                                 <i class="fa fa-circle text-danger font-12" data-toggle="tooltip" data-placement="top" title="Tidak Valid"></i>
