@@ -103,7 +103,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <label class="col-lg-2">Status Akun</label>
+                                    <label class="col-lg-2">Status Supplier</label>
                                     <div class="col-lg-10">
                                         <div class="row">
                                             <div class="col-md-12">

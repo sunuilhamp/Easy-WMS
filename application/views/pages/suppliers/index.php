@@ -20,7 +20,7 @@
                                     <th class="border-0 font-14 font-weight-medium text-muted px-2">Email</th>
                                     <th class="border-0 font-14 font-weight-medium text-muted px-2">Telefon</th>
                                     <th class="border-0 font-14 font-weight-medium text-muted">Alamat</th>
-                                    <th class="border-0 font-14 font-weight-medium text-muted text-center">Status</th>
+                                    <th class="border-0 font-14 font-weight-medium text-muted text-center">Status Supplier</th>
                                     <!-- Hanya admin yang boleh edit -->
                                     <?php if ($this->session->userdata('role') == 'admin') : ?>
                                         <th class="border-0 font-14 font-weight-medium text-muted text-center"></th>
@@ -36,9 +36,9 @@
                                         <td class="border-top-0 text-muted px-2 py-4 font-14"><?= $row->alamat ?></td>
                                         <td class="border-top-0 text-center px-2 py-4">
                                             <?php if ($row->status == 'aktif') : ?>
-                                                <i class="fa fa-circle text-success font-12" data-toggle="tooltip" data-placement="top" title="Akun Aktif"></i>
+                                                <i class="fa fa-circle text-success font-12" data-toggle="tooltip" data-placement="top" title="Aktif"></i>
                                             <?php else : ?>
-                                                <i class="fa fa-circle text-danger font-12" data-toggle="tooltip" data-placement="top" title="Akun Non-Aktif"></i>
+                                                <i class="fa fa-circle text-danger font-12" data-toggle="tooltip" data-placement="top" title="Non-Aktif"></i>
                                             <?php endif ?>
                                         </td>
                                         
