@@ -35,6 +35,37 @@ class Suppliers extends MY_Controller
         $this->view($data);
     }
 
+    public function search($page = null)
+    {
+        if (isset($_POST['keyword'])) {
+            $this->session->set_userdata('keyword', $this->input->post('keyword'));
+        }
+
+        $keyword = $this->session->userdata('keyword');
+
+        if (empty($keyword)) {
+            redirect(base_url('suppliers'));
+        }
+
+        $keyword = $this->session->userdata('keyword');
+
+        $data['title']              = 'Easy WMS - Cari Supplier';
+        $data['breadcrumb_title']   = "List Supplier";
+        $data['breadcrumb_path']    = "List Supplier / Cari / $keyword";
+        $data['content']            = $this->suppliers->paginate($page)
+                                        ->like('nama', $keyword)
+                                        ->orLike('email', $keyword)
+                                        ->paginate($page)
+                                        ->get();
+        $data['total_rows']         = $this->suppliers->like('nama', $keyword)
+                                        ->orLike('email', $keyword)
+                                        ->count();
+        $data['pagination']         = $this->suppliers->makePagination(base_url('suppliers/search'), 3, $data['total_rows']);
+        $data['page']               = 'pages/suppliers/index';
+
+        $this->view($data);
+    }
+
     /**
      * Edit data supplier
      */

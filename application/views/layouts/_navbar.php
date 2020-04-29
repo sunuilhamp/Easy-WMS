@@ -62,7 +62,7 @@
                 <!-- ============================================================== -->
                 <!-- Search -->
                 <!-- ============================================================== -->
-                <!-- Menu Pesan menampilkan search box -->
+                <!-- Halaman list barang menampilkan search box -->
                 <?php if ($this->uri->segment(1) == 'items') : ?>
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link">
@@ -74,11 +74,11 @@
                             </form>
                         </a>
                     </li>
-                <!-- Menu List Penjualan menampilkan search box -->
-                <?php elseif ($this->uri->segment(1) == 'sales') : ?>
+                <!-- Halaman list supplier menampilkan search box -->
+                <?php elseif ($this->uri->segment(1) == 'suppliers') : ?>
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link">
-                            <form action="<?= base_url('sales/search') ?>" method="POST">
+                            <form action="<?= base_url('suppliers/search') ?>" method="POST">
                                 <div class="customize-input">
                                     <input name="keyword" class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search" value="<?= $this->session->userdata('keyword') ?>">
                                     <i class="form-control-icon" data-feather="search"></i>
@@ -86,11 +86,47 @@
                             </form>
                         </a>
                     </li>
-                <!-- Menu List Karyawan menampilkan search box -->
+                <!-- Halaman catatan masuk menampilkan search box -->
+                <?php elseif ($this->uri->segment(1) == 'inputs') : ?>
+                    <li class="nav-item d-none d-md-block">
+                        <a class="nav-link">
+                            <form action="<?= base_url('inputs/search') ?>" method="POST">
+                                <div class="customize-input">
+                                    <input name="keyword" class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search" value="<?= $this->session->userdata('keyword') ?>">
+                                    <i class="form-control-icon" data-feather="search"></i>
+                                </div>
+                            </form>
+                        </a>
+                    </li>
+                <!-- Halaman catatan keluar menampilkan search box -->
+                <?php elseif ($this->uri->segment(1) == 'outputs') : ?>
+                    <li class="nav-item d-none d-md-block">
+                        <a class="nav-link">
+                            <form action="<?= base_url('outputs/search') ?>" method="POST">
+                                <div class="customize-input">
+                                    <input name="keyword" class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search" value="<?= $this->session->userdata('keyword') ?>">
+                                    <i class="form-control-icon" data-feather="search"></i>
+                                </div>
+                            </form>
+                        </a>
+                    </li>
+                <!-- Menu list karyawan menampilkan search box -->
                 <?php elseif ($this->uri->segment(1) == 'users') : ?>
                     <li class="nav-item d-none d-md-block">
                         <a class="nav-link">
                             <form action="<?= base_url('users/search') ?>" method="POST">
+                                <div class="customize-input">
+                                    <input name="keyword" class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search" value="<?= $this->session->userdata('keyword') ?>">
+                                    <i class="form-control-icon" data-feather="search"></i>
+                                </div>
+                            </form>
+                        </a>
+                    </li>
+                <!-- Menu list satuan menampilkan search box -->
+                <?php elseif ($this->uri->segment(1) == 'units') : ?>
+                    <li class="nav-item d-none d-md-block">
+                        <a class="nav-link">
+                            <form action="<?= base_url('units/search') ?>" method="POST">
                                 <div class="customize-input">
                                     <input name="keyword" class="form-control custom-shadow custom-radius border-0 bg-white" type="search" placeholder="Search" aria-label="Search" value="<?= $this->session->userdata('keyword') ?>">
                                     <i class="form-control-icon" data-feather="search"></i>
