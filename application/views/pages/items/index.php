@@ -48,15 +48,20 @@
                         <p class="card-text"><strong>Rp.<?= number_format($row->harga, 0, ',', '.') ?>,-</strong></p>
                         <p class="card-text">Kuantitas barang: <?= $row->qty . ' ' . ucfirst($row->nama_satuan) ?></p>
                         <p class="card-text">Supplier: <?= $row->nama_supplier ?></p>
-                        <form action="<?= base_url('cart/add') ?>" method="POST">
-                            <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
-                            <div class="input-group">
-                                <input type="number" name="qty" value="1" class="form-control">
-                                <div class="input-group-append">
-                                    <button class="btn btn-light" type="submit">Ubah Stok</button>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-2">
+                                <form action="<?= base_url('input/add') ?>" method="POST">
+                                    <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
+                                    <button class="btn btn-block btn-light" type="submit">Masukan Barang</button>
+                                </form>
                             </div>
-                        </form>
+                            <div class="col-md-6 mt-2">
+                                <form action="<?= base_url('output/add') ?>" method="POST">
+                                    <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
+                                    <button class="btn btn-block btn-light" type="submit">Keluarkan Barang</button>
+                                </form>
+                            </div>
+                        </div>         
                     </div>
                 </div>
             </div>

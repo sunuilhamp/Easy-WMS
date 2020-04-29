@@ -21,7 +21,7 @@
                 <?php if ($this->session->userdata('role') == 'admin') : ?>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="<?= base_url('item') ?>" aria-expanded="false">
-                            <i data-feather="inbox" class="feather-icon"></i>
+                            <i data-feather="clipboard" class="feather-icon"></i>
                             <span class="hide-menu">Register Barang</span>
                         </a>
                     </li>
