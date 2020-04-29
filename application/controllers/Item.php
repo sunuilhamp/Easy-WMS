@@ -31,11 +31,11 @@ class Item extends MY_Controller
         }
 
         if (!$this->item->validate()) {
-            $data['title'] = 'Easy WMS - Tambah Barang';
+            $data['title'] = 'Easy WMS - Register Barang';
             $data['input'] = $input;
             $data['page']  = 'pages/item/index';
-            $data['breadcrumb_title'] = 'Tambah Barang';
-            $data['breadcrumb_path']  = 'Barang Masuk / Tambah Barang';
+            $data['breadcrumb_title'] = 'Register Barang';
+            $data['breadcrumb_path']  = 'Barang Masuk / Register Barang';
 
             return $this->view($data);
         }

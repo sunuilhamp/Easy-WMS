@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Tambah Barang Baru</h4>
+                    <h4 class="card-title mb-4">Register Barang Baru</h4>
                     <form action="<?= base_url('item') ?>" method="POST">
                         <div class="form-body">
                             <div class="form-group">
