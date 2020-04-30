@@ -170,12 +170,12 @@ class Cartin extends MY_Controller
 
         $id = $this->input->post('id');
 
-        if (!$this->cartin->where('id', $id)->first()) {  // Jika pesanan tidak ditemukan
+        if (!$this->cartin->where('id', $id)->first()) {  // Jika cart tidak ditemukan
             $this->session->set_flashdata('warning', 'Maaf data tidak ditemukan');
             redirect(base_url('cartin'));
         }
 
-        if ($this->cartin->where('id', $id)->delete()) {  // Jika penghapusan pesanan berhasil
+        if ($this->cartin->where('id', $id)->delete()) {  // Jika penghapusan cart berhasil
             $this->session->set_flashdata('success', '1 Barang berhasil dikeluarkan');
         } else {
             $this->session->set_flashdata('error', 'Oops, terjadi suatu kesalahan');
@@ -228,7 +228,7 @@ class Cartin extends MY_Controller
         $inputCartCount = $this->cartin->where('id_user', $this->id_user)->count();
         
         if (!$inputCartCount) {
-            $this->session->set_flashdata('warning', 'Tidak ada pesanan!');
+            $this->session->set_flashdata('warning', 'Tidak ada barang yang akan dimasukan!');
             redirect(base_url('cartin'));
         }
 
