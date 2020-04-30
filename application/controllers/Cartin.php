@@ -29,9 +29,9 @@ class Cartin extends MY_Controller
         $data['breadcrumb_path']    = 'Barang Masuk / Keranjang Masuk';
         $data['page']               = 'pages/cartin/index';
         $data['content']            = $this->cartin->select([
-                'barang.id AS id_barang', 'barang.nama', 'barang.harga', 
-                'keranjang_masuk.id AS id', 'keranjang_masuk.qty AS qty_barang_masuk', 
-                'keranjang_masuk.subtotal'
+                'barang.id AS id_barang', 'barang.nama', 'barang.harga',
+                'barang.id_satuan', 'keranjang_masuk.id AS id', 
+                'keranjang_masuk.qty AS qty_barang_masuk', 'keranjang_masuk.subtotal'
             ])
             ->where('keranjang_masuk.id_user', $this->id_user)
             ->join('barang')
@@ -73,7 +73,7 @@ class Cartin extends MY_Controller
             ];
 
             // Update data
-            if ($this->cartin->where('id', $cart->id_pesanan)
+            if ($this->cartin->where('id', $cart->id)
                              ->where('id_user', $this->id_user)
                              ->update($data)
             ) {
@@ -94,7 +94,7 @@ class Cartin extends MY_Controller
         ];
 
         if ($this->cartin->create($data)) {   // Jika insert berhasil
-            $this->session->set_flashdata('success', 'Barang berhasil ditambahkan');
+            $this->session->set_flashdata('success', 'Barang berhasil dimasukan ke keranjang');
         } else {
             $this->session->set_flashdata('error', 'Oops! Terjadi kesalahan');
         }
@@ -107,42 +107,51 @@ class Cartin extends MY_Controller
      */
     public function update()
     {
-        if (!$_POST || $this->input->post('qty_pesanan') < 1) {
+        if (!$_POST || $this->input->post('qty_barang_masuk') < 1) {
             $this->session->set_flashdata('error', 'Kuantitas tidak boleh kosong');
-            redirect(base_url('cart'));
+            redirect(base_url('cartin'));
         }
 
+        $id = $this->input->post('id_barang');
         $id_barang = $this->input->post('id_barang');
 
-        $data['content'] = $this->cartin->where('id_barang', $id_barang)->first();   // Mengambil data dari cart
+        // Mengambil data dari keranjang
+        $data['content'] = $this->cartin->where('id_barang', $id_barang)
+                                        ->where('id', $id)
+                                        ->first();
 
         if (!$data['content']) {
             $this->session->set_flashdata('warning', 'Data tidak ditemukan');
-            redirect(base_url('cart'));
+            redirect(base_url('cartin'));
         }
 
         // Mengambil data barang yang dipilih, untuk mendapatkan harga barang
-        $this->cartin->table  = 'stock_barang';
-        $barang             = $this->cartin->where('id_barang', $data['content']->id_barang)->first();
+        $this->cartin->table = 'barang';
+        $barang = $this->cartin->where('id', $data['content']->id_barang)->first();
 
-        // Menghitung subtotal baru
-        $data['input']      = (object) $this->input->post(null, true);
-        $subtotal_pesanan   = $data['input']->qty_pesanan * $barang->harga_jual;
+        // Update subtotal
+        $data['input'] = (object) $this->input->post(null, true);
+        $subtotal_pembaharuan = $data['input']->qty_barang_masuk * $barang->harga;
 
         // Update data
         $cart = [
-            'qty_pesanan'       => $data['input']->qty_pesanan,
-            'subtotal_pesanan'  => $subtotal_pesanan
+            'qty'      => $data['input']->qty_barang_masuk,
+            'subtotal' => $subtotal_pembaharuan
         ];
 
-        $this->cartin->table  = 'keranjang';
-        if ($this->cartin->where('id_barang', $id_barang)->update($cart)) {   // Jika update berhasil
+        $this->cartin->table  = 'keranjang_masuk';
+        if ($this->cartin->where('id', $id)
+                         ->where('id_barang', $id_barang)
+                         ->where('id_user', $this->id_user)
+                         ->update($cart)
+        ) {
+            // Jika update berhasil
             $this->session->set_flashdata('success', 'Kuantitas berhasil diubah');
         } else {
             $this->session->set_flashdata('error', 'Oops! Terjadi kesalahan');
         }
 
-        redirect(base_url('cart'));
+        redirect(base_url('cartin'));
     }
 
     /**
@@ -152,24 +161,24 @@ class Cartin extends MY_Controller
     {
         if (!$_POST) {
             // Jika diakses tidak dengan menggunakan method post, kembalikan ke home (forbidden)
-            $this->session->set_flashdata('error', 'Akses penghapusan pesanan ditolak!');
+            $this->session->set_flashdata('error', 'Akses pengeluaran barang dari keranjang ditolak!');
             redirect(base_url('home'));
         }
 
-        $id_pesanan = $this->input->post('id_pesanan');
+        $id = $this->input->post('id');
 
-        if (!$this->cartin->where('id_pesanan', $id_pesanan)->first()) {  // Jika pesanan tidak ditemukan
+        if (!$this->cartin->where('id', $id)->first()) {  // Jika pesanan tidak ditemukan
             $this->session->set_flashdata('warning', 'Maaf data tidak ditemukan');
-            redirect(base_url('cart'));
+            redirect(base_url('cartin'));
         }
 
-        if ($this->cartin->where('id_pesanan', $id_pesanan)->delete()) {  // Jika penghapusan pesanan berhasil
-            $this->session->set_flashdata('success', '1 Pesanan berhasil dihapus');
+        if ($this->cartin->where('id', $id)->delete()) {  // Jika penghapusan pesanan berhasil
+            $this->session->set_flashdata('success', '1 Barang berhasil dikeluarkan');
         } else {
             $this->session->set_flashdata('error', 'Oops, terjadi suatu kesalahan');
         }
 
-        redirect(base_url('cashier'));
+        redirect(base_url('cartin'));
     }
 
     /**
@@ -179,23 +188,25 @@ class Cartin extends MY_Controller
     {
         if (!$_POST) {
             $this->session->set_flashdata('error', 'Aksi ditolak');
-            redirect(base_url('cart'));
+            redirect(base_url('cartin'));
         }
 
         if ($this->cartin->where('id_user', $this->id_user)->count() < 1) {
-            $this->session->set_flashdata('warning', 'Tidak ada pesanan di dalam keranjang');
-            redirect(base_url('cart'));
+            $this->session->set_flashdata('warning', 'Tidak ada barang di dalam keranjang');
+            redirect(base_url('cartin'));
         }
 
-        $this->cartin->where('id_user', $this->id_user)->delete();    // Hapus seluruh pesanan dari user
+        // Hapus seluruh isi keranjang dari user
+        $this->cartin->where('id_user', $this->id_user)->delete();
 
-        if ($this->cartin->count() < 1) {  // Jika tabel pesanan kosong, reset index id_pesanan
-            $this->cartin->nukeTable();
+        // Jika tabel keranjang dari seluruh user kosong, reset autoincrement id keranjang
+        if ($this->cartin->count() < 1) { 
+            $this->cartin->resetIndex();
         }
 
-        $this->session->set_flashdata('success', 'Keranjang belanja dibersihkan');
+        $this->session->set_flashdata('success', 'Keranjang masuk anda telah dibersihkan');
 
-        redirect(base_url('cart'));
+        redirect(base_url('cartin'));
     }
 
     /**

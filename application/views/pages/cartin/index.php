@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header bg-primary text-white">
-                    Keranjang Pesanan
+                    Keranjang Penambahan Barang
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive w-100 d-block d-md-table">
@@ -28,12 +28,16 @@
                                     <td>
                                         <strong><?= $row->nama ?></strong>
                                     </td>
-                                    <td class="text-center">Rp.<?= number_format($row->harga, 0, ',', '.') ?>,-</td>
+                                    <td class="text-center">
+                                        Rp.<?= number_format($row->harga, 0, ',', '.') ?>,- / 
+                                        <small><?= ucfirst(getUnitName($row->id_satuan)) ?></small>
+                                    </td>
                                     <td>
                                         <form action="<?= base_url('cartin/update') ?>" method="POST">
+                                            <input type="hidden" name="id" value="<?= $row->id ?>">
                                             <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
                                             <div class="input-group">
-                                                <input type="number" name="qty_pesanan" class="form-control text-center" value="<?= $row->qty_barang_masuk ?>">
+                                                <input type="number" name="qty_barang_masuk" class="form-control text-center" value="<?= $row->qty_barang_masuk ?>">
                                                 <div class="input-group-append">
                                                     <button type="submit" class="btn btn-info"><i class="fas fa-check"></i></button>
                                                 </div>
