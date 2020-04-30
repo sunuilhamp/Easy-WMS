@@ -115,7 +115,7 @@ class Cartin extends MY_Controller
             redirect(base_url('cartin'));
         }
 
-        $id = $this->input->post('id_barang');
+        $id = $this->input->post('id');
         $id_barang = $this->input->post('id_barang');
 
         // Mengambil data dari keranjang
@@ -176,7 +176,7 @@ class Cartin extends MY_Controller
         }
 
         if ($this->cartin->where('id', $id)->delete()) {  // Jika penghapusan cart berhasil
-            $this->session->set_flashdata('success', '1 Barang berhasil dikeluarkan');
+            $this->session->set_flashdata('success', '1 Barang berhasil dikeluarkan dari keranjang');
         } else {
             $this->session->set_flashdata('error', 'Oops, terjadi suatu kesalahan');
         }
