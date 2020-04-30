@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 29, 2020 at 09:41 AM
+-- Generation Time: Apr 30, 2020 at 08:42 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -41,9 +41,9 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `id_supplier`, `nama`, `qty`, `id_satuan`, `harga`) VALUES
-(1, 1, 'Indomie Goreng', 5, 1, 45000),
-(2, 1, 'Good Day Freeze', 12, 2, 30000),
-(3, 1, 'Es Milos', 0, 2, 5000);
+(1, 1, 'Indomie Goreng', 11, 1, 45000),
+(2, 1, 'Good Day Freeze', 15, 2, 30000),
+(3, 1, 'Es Milos', 8, 2, 5000);
 
 -- --------------------------------------------------------
 
@@ -115,7 +115,13 @@ CREATE TABLE `barang_masuk` (
 
 INSERT INTO `barang_masuk` (`id`, `id_user`, `waktu`, `total_harga`) VALUES
 (1, 1, '2020-04-28 21:31:48', 810000),
-(2, 1, '2020-04-28 23:49:46', 0);
+(4, 1, '2020-04-30 23:09:47', 65000),
+(5, 1, '2020-04-30 23:13:58', 90000),
+(6, 1, '2020-04-30 23:22:47', 5000),
+(7, 1, '2020-04-30 23:36:31', 50000),
+(8, 1, '2020-04-30 23:37:06', 35000),
+(9, 1, '2020-04-30 23:37:44', 105000),
+(10, 1, '2020-05-01 01:28:29', 45000);
 
 -- --------------------------------------------------------
 
@@ -137,7 +143,17 @@ CREATE TABLE `barang_masuk_detail` (
 
 INSERT INTO `barang_masuk_detail` (`id`, `id_barang_masuk`, `id_barang`, `qty`, `subtotal`) VALUES
 (1, 1, 1, 10, 450000),
-(2, 1, 2, 12, 360000);
+(4, 4, 1, 1, 45000),
+(5, 4, 3, 4, 20000),
+(6, 5, 1, 2, 90000),
+(7, 6, 3, 1, 5000),
+(8, 7, 1, 1, 45000),
+(9, 7, 3, 1, 5000),
+(10, 8, 2, 1, 30000),
+(11, 8, 3, 1, 5000),
+(12, 9, 2, 2, 60000),
+(13, 9, 1, 1, 45000),
+(14, 10, 1, 1, 45000);
 
 --
 -- Triggers `barang_masuk_detail`
@@ -365,13 +381,13 @@ ALTER TABLE `barang_keluar_detail`
 -- AUTO_INCREMENT for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `barang_masuk_detail`
 --
 ALTER TABLE `barang_masuk_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `keranjang_keluar`
@@ -383,7 +399,7 @@ ALTER TABLE `keranjang_keluar`
 -- AUTO_INCREMENT for table `keranjang_masuk`
 --
 ALTER TABLE `keranjang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `satuan`
