@@ -50,10 +50,10 @@
                         <p class="card-text">Supplier: <?= $row->nama_supplier ?></p>
                         <div class="row">
                             <div class="col-md-6 mt-2">
-                                <form action="<?= base_url('input/add') ?>" method="POST">
+                                <form action="<?= base_url('cartin/add') ?>" method="POST">
                                     <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
                                     <div class="input-group">
-                                        <input type="number" name="qty_masuk" min="0" value="1" class="form-control">
+                                        <input type="number" name="qty_masuk" min="1" value="1" class="form-control">
                                         <div class="input-group-append">
                                             <button class="btn btn-light" type="submit">In</button>
                                         </div>
@@ -61,7 +61,7 @@
                                 </form>
                             </div>
                             <div class="col-md-6 mt-2">
-                                <form action="<?= base_url('output/add') ?>" method="POST">
+                                <form action="<?= base_url('cartout/add') ?>" method="POST">
                                     <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
                                     <div class="input-group">
                                         <input type="number" name="qty_keluar" max="<?= $row->qty ?>" value="1" class="form-control">

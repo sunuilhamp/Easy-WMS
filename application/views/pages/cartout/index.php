@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header bg-primary text-white">
-                    Keranjang Penambahan Barang
+                    Keranjang Pesanan
                 </div>
                 <div class="card-body">
                     <table class="table table-responsive w-100 d-block d-md-table">
@@ -26,29 +26,25 @@
                             <?php foreach ($content as $row) : ?>
                                 <tr>
                                     <td>
-                                        <strong><?= $row->nama ?></strong>
+                                        <strong><?= $row->nama_barang ?></strong>
                                     </td>
-                                    <td class="text-center">
-                                        Rp.<?= number_format($row->harga, 0, ',', '.') ?>,- / 
-                                        <small><?= ucfirst(getUnitName($row->id_satuan)) ?></small>
-                                    </td>
+                                    <td class="text-center">Rp.<?= number_format($row->harga_jual, 0, ',', '.') ?>,-</td>
                                     <td>
-                                        <form action="<?= base_url('cartin/update') ?>" method="POST">
-                                            <input type="hidden" name="id" value="<?= $row->id ?>">
+                                        <form action="<?= base_url('cart/update') ?>" method="POST">
                                             <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
                                             <div class="input-group">
-                                                <input type="number" name="qty_barang_masuk" class="form-control text-center" value="<?= $row->qty_barang_masuk ?>">
+                                                <input type="number" name="qty_pesanan" class="form-control text-center" value="<?= $row->qty_pesanan ?>">
                                                 <div class="input-group-append">
                                                     <button type="submit" class="btn btn-info"><i class="fas fa-check"></i></button>
                                                 </div>
                                             </div>
-                                            <small class="text-danger mt-1"><?= $this->session->flashdata("qty_cartin_$row->id") ?></small>
+                                            <small class="text-danger mt-1"><?= $this->session->flashdata("qty_pesanan_$row->id_pesanan") ?></small>
                                         </form>
                                     </td>
-                                    <td class="text-center">Rp.<?= number_format($row->subtotal, 0, ',', '.') ?>,-</td>
+                                    <td class="text-center">Rp.<?= number_format($row->subtotal_pesanan, 0, ',', '.') ?>,-</td>
                                     <td>
-                                        <form action="<?= base_url('cartin/delete') ?>" method="POST">
-                                            <input type="hidden" name="id" value="<?= $row->id ?>">
+                                        <form action="<?= base_url('cart/delete') ?>" method="POST">
+                                            <input type="hidden" name="id_pesanan" value="<?= $row->id_pesanan ?>">
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash-alt"></i></button>
                                         </form>
                                     </td>
@@ -56,7 +52,7 @@
                             <?php endforeach ?>
                             <tr>
                                 <td colspan="3"><strong>Total:</strong></td>
-                                <td class="text-center"><strong>Rp.<?= number_format(array_sum(array_column($content, 'subtotal')), 0, ',', '.') ?>,-</strong></td>
+                                <td class="text-center"><strong>Rp.<?= number_format(array_sum(array_column($content, 'subtotal_pesanan')), 0, ',', '.') ?>,-</strong></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -65,16 +61,16 @@
                 <div class="card-footer bg-white">
                     <div class="row">
                         <div class="col-md-4 col-sm-12 mb-2">
-                            <a href="<?= base_url('items') ?>" class="btn btn-warning btn-rounded text-white"><i class="fas fa-angle-left"></i> List barang</a>
+                            <a href="<?= base_url('cashier') ?>" class="btn btn-warning btn-rounded text-white"><i class="fas fa-angle-left"></i> Kembali ke kasir</a>
                         </div>
                         <div class="col-md-4 col-sm-12 mb-2 d-flex justify-content-center">
-                            <form action="<?= base_url('cartin/drop') ?>" method="POST">
+                            <form action="<?= base_url('cart/drop') ?>" method="POST">
                                 <input type="hidden" name="id_pesanan" value="">
-                                <button type="submit" class="btn btn-danger btn-rounded text-white"><i class="fas fa-trash"></i> Kosongkan keranjang</button>
+                                <button type="submit" class="btn btn-danger btn-rounded text-white"><i class="fas fa-trash"></i> Reset pesanan</button>
                             </form>
                         </div>
                         <div class="col-md-4 col-sm-12 mb-2">
-                            <a href="<?= base_url('cartin/checkout') ?>" class="btn btn-success btn-rounded float-right">Checkout <i class="fas fa-angle-right"></i></a>
+                            <a href="<?= base_url('cart/checkout') ?>" class="btn btn-success btn-rounded float-right">Pembayaran <i class="fas fa-angle-right"></i></a>
                         </div>
                     </div>
                 </div>

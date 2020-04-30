@@ -210,8 +210,9 @@ class Cartin extends MY_Controller
     }
 
     /**
-     * Fungsi ini memasukan informasi penjualan ke tabel 'penjualan' 
-     * dan memindahkan list keranjang pesanan ke 'detail_penjualan'
+     * Fungsi tombol checkout
+     * Fungsi ini memasukan informasi pemasukan barang ke tabel 'barang_masuk' 
+     * dan memindahkan list keranjang masuk ke tabel 'barang_masuk_detail'
      */
     public function checkout()
     {
@@ -220,71 +221,72 @@ class Cartin extends MY_Controller
             redirect(base_url('home'));
         }
 
-        // Cek apakah user memiliki pesanan di keranjang
-        $jumlahPesanan = $this->cartin->where('id_user', $this->id_user)->count();
+        // Cek apakah user memiliki barang masukan pending di keranjang
+        $inputCartCount = $this->cartin->where('id_user', $this->id_user)->count();
         
-        if (!$jumlahPesanan) {
+        if (!$inputCartCount) {
             $this->session->set_flashdata('warning', 'Tidak ada pesanan!');
-            redirect(base_url('home'));
+            redirect(base_url('cartin'));
         }
 
-        if (!$this->cartin->validateStock()) { // Valdasi stok
-            return $this->index();
-        }
+        // PENGURANGAN BARANG WAJIB PANGGIL INI 
+        // AGAR USER TIDAK MENGURANGI BARANG MELEBIHI STOK YANG TERSEDIA
+        // if (!$this->cartin->validateStock()) { // Valdasi stok
+        //     return $this->index();
+        // }
 
-        // Menghitung total dari subtotal pesanan suatu user
-        $total = $this->db->select_sum('subtotal_pesanan')
-            ->where('id_user', $this->id_user)
-            ->get('keranjang')
-            ->row()                 // Select first row
-            ->subtotal_pesanan;     // Select column subtotal_pesanan
+        // Menghitung total dari subtotal pemasukan oleh suatu user
+        $total = $this->db->select_sum('subtotal')
+                          ->where('id_user', $this->id_user)
+                          ->get('keranjang_masuk')
+                          ->row()       // Select first row
+                          ->subtotal;   // Select column subtotal
 
-        // Menyiapkan insert table penjualan
-        $data['id_user'] = $this->id_user;
+        // Menyiapkan insert table barang_masuk
+        $data['id_user']     = $this->id_user;
+        $this->cartin->table = 'barang_masuk';
 
-        // Jika insert penjualan berhasil, siapkan insert lagi ke dalam detail_penjualan
-        $this->cartin->table = 'penjualan';
-        if ($id_penjualan = $this->cartin->create($data)) { 
-            // Ambil list pesanan yang telah dipesan user
+        // Jika insert barang_masuk berhasil, siapkan insert lagi ke dalam barang_masuk_detail
+        if ($id_barang_masuk = $this->cartin->create($data)) { 
+            // Ambil list keranjang user
             $cart = $this->db->where('id_user', $this->id_user) 
-                             ->get('keranjang')
+                             ->get('keranjang_masuk')
                              ->result_array();
 
             // Modifikasi tiap cart
             foreach ($cart as $row) {
-                $row['id_penjualan'] = $id_penjualan;           // Tambah kolom id_order
-                $row['qty_jual']     = $row['qty_pesanan'];
-                unset($row['id_pesanan'], $row['id_user'], $row['qty_pesanan'], $row['subtotal_pesanan']);   // Hapus kolom tidak penting
-                $this->db->insert('detail_penjualan', $row);    // Insert ke tabel detail_penjualan
+                $row['id_barang_masuk'] = $id_barang_masuk;
+                unset($row['id'], $row['id_user']);             // Hapus kolom tidak penting
+                $this->db->insert('barang_masuk_detail', $row); // Insert ke tabel barang_masuk_detail
             }
 
-            $this->db->delete('keranjang', ['id_user' => $this->id_user]);    // Hapus cart user sekarang
+            $this->db->delete('keranjang_masuk', ['id_user' => $this->id_user]);    // Hapus cart user sekarang
 
-            $this->session->set_flashdata('success', 'Data berhasil disimpan');
+            $this->session->set_flashdata('success', 'Penambahan stok berhasil');
 
             $data['title']              = 'Checkout';
             $data['breadcrumb_title']   = "Checkout";
-            $data['breadcrumb_path']    = 'Kasir / Keranjang Pesanan / Checkout';
-            $data['page']               = 'pages/checkout/index';
+            $data['breadcrumb_path']    = 'Barang Masuk / Keranjang Masuk / Checkout';
+            $data['page']               = 'pages/cartin/checkout';
 
-            // Ambil data penjualan
-            $this->table        = 'penjualan';
-            $data['penjualan']  = $this->cartin->select([
-                    'user.id_user', 'user.nama',
-                    'penjualan.id_penjualan', 'penjualan.waktu_penjualan'
+            // Ambil data pemasukan barang untuk ditampilkan di halaman checkout
+            $this->table = 'barang_masuk';
+            $data['barang_masuk']  = $this->cartin->select([
+                    'user.id AS id_user', 'user.nama',
+                    'barang_masuk.id AS id_barang_masuk', 'barang_masuk.waktu'
                 ])
-                ->join('user', $this->cartin->ACTION_ADD_JOIN)
-                ->where('penjualan.id_penjualan', $id_penjualan)
-                ->where('penjualan.id_user', $this->id_user)
+                ->join('user')
+                ->where('barang_masuk.id', $id_barang_masuk)
+                ->where('barang_masuk.id_user', $this->id_user)
                 ->first();
 
-            $this->cartin->table          = 'detail_penjualan';
-            $data['list_pesanan'] = $this->cartin->select([
-                    'detail_penjualan.qty_jual', 'detail_penjualan.subtotal_jual',
-                    'stock_barang.nama_barang', 'stock_barang.harga_jual',
+            $this->cartin->table = 'barang_masuk_detail';
+            $data['list_barang'] = $this->cartin->select([
+                    'barang_masuk_detail.qty', 'barang_masuk_detail.subtotal',
+                    'barang.id_satuan', 'barang.nama', 'barang.harga',
                 ])
-                ->join('stock_barang', $this->cartin->ACTION_TRIM_JOIN)
-                ->where('detail_penjualan.id_penjualan', $id_penjualan)
+                ->join('barang')
+                ->where('barang_masuk_detail.id_barang_masuk', $id_barang_masuk)
                 ->get();
 
             $this->view($data);
