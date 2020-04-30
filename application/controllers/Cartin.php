@@ -2,6 +2,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Controller Keranjang Masuk
+ */
 class Cartin extends MY_Controller 
 {
     private $id_user;
