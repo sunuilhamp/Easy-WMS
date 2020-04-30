@@ -25,8 +25,7 @@
 			</div>
 			<h2>Oops! Halaman Tidak Ditemukan</h2>
 			<p>Maaf mungkin halaman yang anda tuju sedang diperbaiki / sudah dihapus / sudah diganti dengan yang lain.</p>
-			<a href="<?= base_url('home') ?>">Back to homepage</a>
-			<a href="<?= base_url('login') ?>">Login</a>
+			<a href="<?= base_url('home') ?>">Return</a>
 		</div>
 	</div>
 
