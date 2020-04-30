@@ -22,7 +22,7 @@ class Cartout_model extends MY_Model
             $barang      = $this->where('id', $row->id_barang)->first();       
             
             if (($barang->qty - $row->qty) < 0) {
-                $this->session->set_flashdata("qty_barang_$row->id", "Stock hanya ada $barang->qty");
+                $this->session->set_flashdata("qty_cartout_$row->id", "Stock hanya ada $barang->qty");
                 $valid = false;
             }
 

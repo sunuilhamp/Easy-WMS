@@ -56,10 +56,6 @@ class Cartout extends MY_Controller
         
         $input = (object) $this->input->post(null, true);
 
-        // Mengambil data barang yang dipilih
-        $this->cartout->table = 'barang';
-        $barang = $this->cartout->where('id', $input->id_barang)->first();
-
         // Mekanisme penambahan kuantitas
         // Ambil suatu barang di keranjang untuk dicek apakah barang tersebut sudah dimasukan
         $this->cartout->table = 'keranjang_keluar';
@@ -210,11 +206,15 @@ class Cartout extends MY_Controller
         }
 
         // Cek apakah user memiliki barang keluar yang pending di keranjang
-        $inputCartCount = $this->cartout->where('id_user', $this->id_user)->count();
+        $outputCartCount = $this->cartout->where('id_user', $this->id_user)->count();
         
-        if (!$inputCartCount) {
+        if (!$outputCartCount) {
             $this->session->set_flashdata('warning', 'Tidak ada barang yang akan dikeluarkan!');
             redirect(base_url('cartout'));
+        }
+
+        if (!$this->cartout->validateStock()) { // Valdasi stok
+            return $this->index();
         }
 
         // Menyiapkan insert table barang_keluar
