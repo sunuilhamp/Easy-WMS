@@ -64,7 +64,7 @@
                                 <form action="<?= base_url('cartout/add') ?>" method="POST">
                                     <input type="hidden" name="id_barang" value="<?= $row->id_barang ?>">
                                     <div class="input-group">
-                                        <input type="number" name="qty_keluar" max="<?= $row->qty ?>" value="1" class="form-control">
+                                        <input type="number" name="qty_keluar" min="0" max="<?= $row->qty ?>" value="1" class="form-control">
                                         <div class="input-group-append">
                                             <button class="btn btn-light" type="submit">Out</button>
                                         </div>
