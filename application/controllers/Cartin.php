@@ -232,13 +232,6 @@ class Cartin extends MY_Controller
             redirect(base_url('cartin'));
         }
 
-        // Menghitung total dari subtotal pemasukan oleh suatu user
-        $total = $this->db->select_sum('subtotal')
-                          ->where('id_user', $this->id_user)
-                          ->get('keranjang_masuk')
-                          ->row()       // Select first row
-                          ->subtotal;   // Select column subtotal
-
         // Menyiapkan insert table barang_masuk
         $data['id_user']     = $this->id_user;
         $this->cartin->table = 'barang_masuk';
