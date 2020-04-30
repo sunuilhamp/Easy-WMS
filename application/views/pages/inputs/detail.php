@@ -2,36 +2,35 @@
     
     <?php $this->load->view('layouts/_alert') ?>
 
-    <div class="row" id="printStruk">
+    <div class="row" id="printBukti">
         <div class="col-md-12">
             <div class="card mb-3">
                 <div class="card-header bg-primary text-white">
-                    Detail Penjualan
+                    Detail Pemasukan Barang
                 </div>
                 <div class="card-body">
                     <table class="table-responsive mb-3 no-wrap">
                         <tr>
-                            <td>Nomor penjualan</td>
+                            <td>Nomor pemasukan</td>
                             <td>:</td>
-                            <td><?= $penjualan->id_penjualan ?></td>
+                            <td><?= $barang_masuk->id_barang_masuk ?></td>
                         </tr>
                         <tr>
-                            <td>NIP Kasir</td>
+                            <td>NIP Staff</td>
                             <td>:</td>
-                            <td><?= $penjualan->id_user ?></td>
+                            <td><?= $barang_masuk->id_user ?></td>
                         </tr>
                         <tr>
-                            <td>Nama Kasir</td>
+                            <td>Nama Staff</td>
                             <td>:</td>
-                            <td><?= $penjualan->nama ?></td>
+                            <td><?= $barang_masuk->nama ?></td>
                         </tr>
                         <tr>
                             <td>Waktu</td>
                             <td>:</td>
-                            <td><?= date('d/m/Y H:i:s', strtotime($penjualan->waktu_penjualan)) ?></td>
+                            <td><?= date('d/m/Y H:i:s', strtotime($barang_masuk->waktu)) ?></td>
                         </tr>
                     </table>
-                    <p>Terima kasih sudah berbelanja 😊</p>
                     <table class="table table-responsive w-100 d-block d-md-table">
                         <thead>
                             <tr>
@@ -42,19 +41,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($list_pesanan as $row) : ?>
+                            <?php foreach ($list_barang as $barang) : ?>
                                 <tr>
                                     <td>
-                                        <strong><?= $row->nama_barang ?></strong>
+                                        <strong><?= $barang->nama ?></strong>
                                     </td>
-                                    <td class="text-center">Rp.<?= number_format($row->harga_jual, 0, ',', '.') ?>,-</td>
-                                    <td class="text-center"><?= $row->qty_jual ?></td>
-                                    <td class="text-center">Rp.<?= number_format($row->subtotal_jual, 0, ',', '.') ?>,-</td>
+                                    <td class="text-center">
+                                        Rp.<?= number_format($barang->harga, 0, ',', '.') ?>,- / 
+                                        <small><?= ucfirst(getUnitName($barang->id_satuan)) ?></small>
+                                    </td>
+                                    <td class="text-center"><?= $barang->qty ?></td>
+                                    <td class="text-center">Rp.<?= number_format($barang->subtotal, 0, ',', '.') ?>,-</td>
                                 </tr>
                             <?php endforeach ?>
                             <tr>
                                 <td colspan="3"><strong>Total:</strong></td>
-                                <td class="text-center"><strong>Rp.<?= number_format(array_sum(array_column($list_pesanan, 'subtotal_jual')), 0, ',', '.') ?>,-</strong></td>
+                                <td class="text-center"><strong>Rp.<?= number_format(array_sum(array_column($list_barang, 'subtotal')), 0, ',', '.') ?>,-</strong></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -63,10 +65,10 @@
                 <div class="card-footer bg-white">
                     <div class="row">
                         <div class="col-md-6 col-sm-12 mb-2">
-                            <a href="<?= base_url('sales') ?>" class="btn btn-primary btn-rounded text-white"><i class="fas fa-angle-left"></i> Kembali ke List Penjualan</a>
+                            <a href="<?= base_url('inputs') ?>" class="btn btn-primary btn-rounded text-white"><i class="fas fa-angle-left"></i> List pemasukan barang</a>
                         </div>
                         <div class="col-md-6 col-sm-12 mb-2">
-                            <button class="btn btn-success btn-rounded float-right" onclick="printDiv('printStruk')">Cetak Struk <i class="fas fa-angle-right"></i></button>
+                            <button class="btn btn-success btn-rounded float-right" onclick="printDiv('printBukti')">Cetak Bukti <i class="fas fa-angle-right"></i></button>
                         </div>
                     </div>
                 </div>

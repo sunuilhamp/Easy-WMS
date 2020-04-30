@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="<?= base_url('gurung') ?>" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('inputs') ?>" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon"></i>
                         <span class="hide-menu">Catatan Masuk</span>
                     </a>

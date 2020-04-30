@@ -2,9 +2,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Sales_model extends MY_Model 
+class Inputs_model extends MY_Model 
 {
-    public $table = 'penjualan';
+    public $table = 'barang_masuk';
 }
 
-/* End of file Sales_model.php */
+/* End of file Inputs_model.php */
