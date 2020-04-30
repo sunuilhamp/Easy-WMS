@@ -87,13 +87,13 @@
                 <!-- Submemu Manajemen Inventory -->
                 <li class="nav-small-cap"><span class="hide-menu">Barang Keluar</span></li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="<?= base_url('gurung') ?>" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('cartout') ?>" aria-expanded="false">
                         <i data-feather="shopping-cart" class="feather-icon"></i>
                         <span class="hide-menu">Keranjang Keluar</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="<?= base_url('gurung') ?>" aria-expanded="false">
+                    <a class="sidebar-link sidebar-link" href="<?= base_url('outputs') ?>" aria-expanded="false">
                         <i data-feather="file-text" class="feather-icon"></i>
                         <span class="hide-menu">Catatan Keluar</span>
                     </a>
