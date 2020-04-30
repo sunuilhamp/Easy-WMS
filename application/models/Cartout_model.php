@@ -2,36 +2,34 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cart_model extends MY_Model 
+class Output_model extends MY_Model 
 {
-    public $table = 'keranjang_masuk';
+    public $table = 'keranjang_keluar';
 
     /**
-     * Validasi stock dengan membandingkan kuantitas barang di 
-     * tabel chart dengan kuantitas barang di tabel stock barang
+     * Validasi Stok; untuk membandingkan kuantitas barang yang ada di 
+     * tabel keranjang_keluar dengan kuantitas barang yang ada di tabel barang
+     * Ini dilakukan agar user tidak mengurangi barang hingga minus
      */
     public function validateStock()
     {
-        $pesananPas = true;
-        $id_user    = $this->session->userdata('id_user');
-        $cart       = $this->where('id_user', $id_user)->get();
+        $valid   = true;
+        $id_user = $this->session->userdata('id_user');
+        $cart    = $this->where('id_user', $id_user)->get();
         
         foreach ($cart as $row) {
-            $pesanan      = $this->where('id_pesanan', $row->id_pesanan)->first();
-
-            $this->table  = 'stock_barang';
-            $barang       = $this->where('id_barang', $pesanan->id_barang)->first();       
+            $this->table = 'barang';
+            $barang      = $this->where('id', $row->id_barang)->first();       
             
-            if (($barang->qty_inventory - $pesanan->qty_pesanan) < 0) {
-                $this->session->set_flashdata("qty_pesanan_$pesanan->id_pesanan", "Stock hanya ada $barang->qty_inventory");
-
-                $pesananPas = false;
+            if (($barang->qty - $row->qty) < 0) {
+                $this->session->set_flashdata("qty_barang_$row->id", "Stock hanya ada $barang->qty");
+                $valid = false;
             }
 
-            $this->table    = 'keranjang';
+            $this->table = 'keranjang_keluar';
         }
 
-        return $pesananPas;
+        return $valid;
     }
 }
 
