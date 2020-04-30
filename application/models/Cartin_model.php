@@ -2,9 +2,9 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cart_model extends MY_Model 
+class Cartin_model extends MY_Model 
 {
-    public $table = 'keranjang';
+    public $table = 'keranjang_masuk';
 
     /**
      * Validasi stock dengan membandingkan kuantitas barang di 
@@ -35,4 +35,4 @@ class Cart_model extends MY_Model
     }
 }
 
-/* End of file Cart_model.php */
+/* End of file Cartin_model.php */

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cart extends MY_Controller 
+class Cartin extends MY_Controller 
 {
     private $id_user;
 
@@ -24,80 +24,82 @@ class Cart extends MY_Controller
     {
         $this->session->unset_userdata('keyword');
 
-        $data['title']              = 'IFKasir - Keranjang Pesanan';
-        $data['breadcrumb_title']   = "Keranjang Pesanan";
-        $data['breadcrumb_path']    = 'Kasir / Keranjang Pesanan';
-        $data['content']            = $this->cart->select([
-                'stock_barang.id_barang', 'stock_barang.nama_barang', 'stock_barang.harga_jual', 
-                'keranjang.id_pesanan', 'keranjang.qty_pesanan', 'keranjang.subtotal_pesanan',
+        $data['title']              = 'Easy WMS - Keranjang Masuk';
+        $data['breadcrumb_title']   = "Keranjang Masuk";
+        $data['breadcrumb_path']    = 'Barang Masuk / Keranjang Masuk';
+        $data['page']               = 'pages/cartin/index';
+        $data['content']            = $this->cartin->select([
+                'barang.id AS id_barang', 'barang.nama', 'barang.harga', 
+                'keranjang_masuk.id AS id', 'keranjang_masuk.qty AS qty_barang_masuk', 
+                'keranjang_masuk.subtotal'
             ])
-            ->where('keranjang.id_user', $this->id_user)
-            ->join('stock_barang', $this->cart->ACTION_TRIM_JOIN)
+            ->where('keranjang_masuk.id_user', $this->id_user)
+            ->join('barang')
             ->get();
-        $data['page']               = 'pages/cart/index';
 
         $this->view($data);
     }
 
     /**
-     * Menambah produk beserta kuantitasnya di home
+     * Menampung barang yang akan ditambah kuantitasnya
      */
     public function add()
     {
-        if (!$_POST || $this->input->post('qty_pesanan') < 1) {
+        if (!$_POST || $this->input->post('qty_masuk') < 1) {
             $this->session->set_flashdata('error', 'Kuantitas tidak boleh kosong');
-            redirect(base_url('cashier'));
+            redirect(base_url('items'));
             return;
         }
         
         $input = (object) $this->input->post(null, true);
 
-        // Mengambil data barang yang dipilih, untuk mendapatkan nama barang & harga barang
-        $this->cart->table  = 'stock_barang';
-        $barang             = $this->cart->where('id_barang', $input->id_barang)->first();
+        // Mengambil data barang yang dipilih
+        $this->cartin->table = 'barang';
+        $barang = $this->cartin->where('id', $input->id_barang)->first();
 
-        // Ambil cart untuk dicek apakah barang sudah dipesan
-        $this->cart->table  = 'keranjang';
-        $cart               = $this->cart->where('id_barang', $input->id_barang)
-                                ->where('id_user', $this->id_user)
-                                ->first();
+        // Mekanisme penambahan kuantitas
+        // Ambil suatu barang di keranjang untuk dicek apakah barang tersebut sudah dimasukan
+        $this->cartin->table = 'keranjang_masuk';
+        $cart = $this->cartin->where('id_barang', $input->id_barang)
+                             ->where('id_user', $this->id_user)
+                             ->first();
 
-        $subtotal_pesanan   = $barang->harga_jual * $input->qty_pesanan;
+        $subtotal_penambahan = $barang->harga * $input->qty_masuk;
 
-        if ($cart) {    // Jika ternyata user sudah pesan, maka update cart
+        if ($cart) {    // Jika ternyata sudah dimasukan user, maka update cart
             $data = [
-                'qty_pesanan'       => $cart->qty_pesanan + $input->qty_pesanan,
-                'subtotal_pesanan'  => $cart->subtotal_pesanan + $subtotal_pesanan
+                'qty'       => $cart->qty + $input->qty_masuk,
+                'subtotal'  => $cart->subtotal + $subtotal_penambahan
             ];
 
             // Update data
-            if ($this->cart->where('id_pesanan', $cart->id_pesanan)
-                           ->where('id_user', $this->id_user)
-                           ->update($data)) 
-            {
+            if ($this->cartin->where('id', $cart->id_pesanan)
+                             ->where('id_user', $this->id_user)
+                             ->update($data)
+            ) {
                 $this->session->set_flashdata('success', 'Barang berhasil ditambahkan');
             } else {
                 $this->session->set_flashdata('error', 'Oops! Terjadi kesalahan');
             }
 
-            redirect(base_url('cart'));
+            redirect(base_url('cartin'));
+            return;
         }
 
         // --- Insert cart baru ---
         $data = [
-            'id_user'           => $this->id_user,
-            'id_barang'         => $input->id_barang,
-            'qty_pesanan'       => $input->qty_pesanan,
-            'subtotal_pesanan'  => $subtotal_pesanan
+            'id_user'   => $this->id_user,
+            'id_barang' => $input->id_barang,
+            'qty'       => $input->qty_masuk
         ];
 
-        if ($this->cart->create($data)) {   // Jika insert berhasil
+        if ($this->cartin->create($data)) {   // Jika insert berhasil
             $this->session->set_flashdata('success', 'Barang berhasil ditambahkan');
         } else {
             $this->session->set_flashdata('error', 'Oops! Terjadi kesalahan');
         }
 
-        redirect(base_url('cart'));
+        redirect(base_url('cartin'));
     }
 
     /**
@@ -112,7 +114,7 @@ class Cart extends MY_Controller
 
         $id_barang = $this->input->post('id_barang');
 
-        $data['content'] = $this->cart->where('id_barang', $id_barang)->first();   // Mengambil data dari cart
+        $data['content'] = $this->cartin->where('id_barang', $id_barang)->first();   // Mengambil data dari cart
 
         if (!$data['content']) {
             $this->session->set_flashdata('warning', 'Data tidak ditemukan');
@@ -120,8 +122,8 @@ class Cart extends MY_Controller
         }
 
         // Mengambil data barang yang dipilih, untuk mendapatkan harga barang
-        $this->cart->table  = 'stock_barang';
-        $barang             = $this->cart->where('id_barang', $data['content']->id_barang)->first();
+        $this->cartin->table  = 'stock_barang';
+        $barang             = $this->cartin->where('id_barang', $data['content']->id_barang)->first();
 
         // Menghitung subtotal baru
         $data['input']      = (object) $this->input->post(null, true);
@@ -133,8 +135,8 @@ class Cart extends MY_Controller
             'subtotal_pesanan'  => $subtotal_pesanan
         ];
 
-        $this->cart->table  = 'keranjang';
-        if ($this->cart->where('id_barang', $id_barang)->update($cart)) {   // Jika update berhasil
+        $this->cartin->table  = 'keranjang';
+        if ($this->cartin->where('id_barang', $id_barang)->update($cart)) {   // Jika update berhasil
             $this->session->set_flashdata('success', 'Kuantitas berhasil diubah');
         } else {
             $this->session->set_flashdata('error', 'Oops! Terjadi kesalahan');
@@ -156,12 +158,12 @@ class Cart extends MY_Controller
 
         $id_pesanan = $this->input->post('id_pesanan');
 
-        if (!$this->cart->where('id_pesanan', $id_pesanan)->first()) {  // Jika pesanan tidak ditemukan
+        if (!$this->cartin->where('id_pesanan', $id_pesanan)->first()) {  // Jika pesanan tidak ditemukan
             $this->session->set_flashdata('warning', 'Maaf data tidak ditemukan');
             redirect(base_url('cart'));
         }
 
-        if ($this->cart->where('id_pesanan', $id_pesanan)->delete()) {  // Jika penghapusan pesanan berhasil
+        if ($this->cartin->where('id_pesanan', $id_pesanan)->delete()) {  // Jika penghapusan pesanan berhasil
             $this->session->set_flashdata('success', '1 Pesanan berhasil dihapus');
         } else {
             $this->session->set_flashdata('error', 'Oops, terjadi suatu kesalahan');
@@ -180,15 +182,15 @@ class Cart extends MY_Controller
             redirect(base_url('cart'));
         }
 
-        if ($this->cart->where('id_user', $this->id_user)->count() < 1) {
+        if ($this->cartin->where('id_user', $this->id_user)->count() < 1) {
             $this->session->set_flashdata('warning', 'Tidak ada pesanan di dalam keranjang');
             redirect(base_url('cart'));
         }
 
-        $this->cart->where('id_user', $this->id_user)->delete();    // Hapus seluruh pesanan dari user
+        $this->cartin->where('id_user', $this->id_user)->delete();    // Hapus seluruh pesanan dari user
 
-        if ($this->cart->count() < 1) {  // Jika tabel pesanan kosong, reset index id_pesanan
-            $this->cart->nukeTable();
+        if ($this->cartin->count() < 1) {  // Jika tabel pesanan kosong, reset index id_pesanan
+            $this->cartin->nukeTable();
         }
 
         $this->session->set_flashdata('success', 'Keranjang belanja dibersihkan');
@@ -208,14 +210,14 @@ class Cart extends MY_Controller
         }
 
         // Cek apakah user memiliki pesanan di keranjang
-        $jumlahPesanan = $this->cart->where('id_user', $this->id_user)->count();
+        $jumlahPesanan = $this->cartin->where('id_user', $this->id_user)->count();
         
         if (!$jumlahPesanan) {
             $this->session->set_flashdata('warning', 'Tidak ada pesanan!');
             redirect(base_url('home'));
         }
 
-        if (!$this->cart->validateStock()) { // Valdasi stok
+        if (!$this->cartin->validateStock()) { // Valdasi stok
             return $this->index();
         }
 
@@ -230,8 +232,8 @@ class Cart extends MY_Controller
         $data['id_user'] = $this->id_user;
 
         // Jika insert penjualan berhasil, siapkan insert lagi ke dalam detail_penjualan
-        $this->cart->table = 'penjualan';
-        if ($id_penjualan = $this->cart->create($data)) { 
+        $this->cartin->table = 'penjualan';
+        if ($id_penjualan = $this->cartin->create($data)) { 
             // Ambil list pesanan yang telah dipesan user
             $cart = $this->db->where('id_user', $this->id_user) 
                              ->get('keranjang')
@@ -256,21 +258,21 @@ class Cart extends MY_Controller
 
             // Ambil data penjualan
             $this->table        = 'penjualan';
-            $data['penjualan']  = $this->cart->select([
+            $data['penjualan']  = $this->cartin->select([
                     'user.id_user', 'user.nama',
                     'penjualan.id_penjualan', 'penjualan.waktu_penjualan'
                 ])
-                ->join('user', $this->cart->ACTION_ADD_JOIN)
+                ->join('user', $this->cartin->ACTION_ADD_JOIN)
                 ->where('penjualan.id_penjualan', $id_penjualan)
                 ->where('penjualan.id_user', $this->id_user)
                 ->first();
 
-            $this->cart->table          = 'detail_penjualan';
-            $data['list_pesanan'] = $this->cart->select([
+            $this->cartin->table          = 'detail_penjualan';
+            $data['list_pesanan'] = $this->cartin->select([
                     'detail_penjualan.qty_jual', 'detail_penjualan.subtotal_jual',
                     'stock_barang.nama_barang', 'stock_barang.harga_jual',
                 ])
-                ->join('stock_barang', $this->cart->ACTION_TRIM_JOIN)
+                ->join('stock_barang', $this->cartin->ACTION_TRIM_JOIN)
                 ->where('detail_penjualan.id_penjualan', $id_penjualan)
                 ->get();
 
@@ -283,4 +285,4 @@ class Cart extends MY_Controller
     }
 }
 
-/* End of file Cart.php */
+/* End of file Cartin.php */
