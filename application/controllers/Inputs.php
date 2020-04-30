@@ -97,25 +97,25 @@ class Inputs extends MY_Controller
         $time = $this->session->userdata('time');
 
         if (empty($time)) {
-            redirect(base_url('sales'));
+            redirect(base_url('inputs'));
         }
 
-        $data['title']              = 'IFKasir - List Penjualan';
-        $data['breadcrumb_title']   = "List Penjualan";
-        $data['breadcrumb_path']    = "Kasir / List Penjualan / Cari / $time";
+        $data['title']              = 'IFKasir - List Barang Masuk';
+        $data['breadcrumb_title']   = "List Barang Masuk";
+        $data['breadcrumb_path']    = "Barang Masuk / List Barang Masuk / Filter / $time";
         $data['content']            = $this->inputs->select([
-                'penjualan.id_penjualan', 'user.nama', 
-                'penjualan.waktu_penjualan', 'penjualan.total_harga'
+                'barang_masuk.id', 'user.nama', 
+                'barang_masuk.waktu', 'barang_masuk.total_harga'
             ])
-            ->join('user', $this->inputs->ACTION_ADD_JOIN)
-            ->like('DATE(penjualan.waktu_penjualan)', date('Y-m-d', strtotime($time)))
+            ->join('user')
+            ->like('DATE(barang_masuk.waktu)', date('Y-m-d', strtotime($time)))
             ->paginate($page)
             ->get();
-        $data['total_rows'] = $this->inputs->join('user', $this->inputs->ACTION_ADD_JOIN)
-            ->like('DATE(penjualan.waktu_penjualan)', date('Y-m-d', strtotime($time)))
+        $data['total_rows'] = $this->inputs->join('user')
+            ->like('DATE(barang_masuk.waktu)', date('Y-m-d', strtotime($time)))
             ->count();
-        $data['pagination'] = $this->inputs->makePagination(base_url('sales/search_time'), 3, $data['total_rows']);
-        $data['page']       = 'pages/sales/index';
+        $data['pagination'] = $this->inputs->makePagination(base_url('inputs/search_time'), 3, $data['total_rows']);
+        $data['page']       = 'pages/inputs/index';
 
         $this->view($data);
     }
