@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Output_model extends MY_Model 
+class Cartout_model extends MY_Model 
 {
     public $table = 'keranjang_keluar';
 
@@ -33,4 +33,4 @@ class Output_model extends MY_Model
     }
 }
 
-/* End of file Output_model.php */
+/* End of file Cartout_model.php */
