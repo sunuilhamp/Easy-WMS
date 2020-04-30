@@ -42,6 +42,9 @@ class Units extends MY_Controller
         $this->view($data);
     }
 
+    /**
+     * Mencari berdasarkan nama satuan
+     */
     public function search($page = null)
     {
         if (isset($_POST['keyword'])) {
@@ -59,15 +62,10 @@ class Units extends MY_Controller
         $data['title']              = 'Easy WMS - Cari Staff';
         $data['breadcrumb_title']   = "Daftar Staff";
         $data['breadcrumb_path']    = "Daftar Staff / Cari / $keyword";
-        $data['content']            = $this->units->paginate($page)
-                                        ->like('nama', $keyword)
-                                        ->orLike('ktp', $keyword)
-                                        ->orLike('email', $keyword)
+        $data['content']            = $this->units->like('nama', $keyword)
                                         ->paginate($page)
                                         ->get();
         $data['total_rows']         = $this->units->like('nama', $keyword)
-                                        ->orLike('ktp', $keyword)
-                                        ->orLike('email', $keyword)
                                         ->count();
         $data['pagination']         = $this->units->makePagination(base_url('units/search'), 3, $data['total_rows']);
         $data['page']               = 'pages/units/index';
