@@ -232,12 +232,6 @@ class Cartin extends MY_Controller
             redirect(base_url('cartin'));
         }
 
-        // PENGURANGAN BARANG WAJIB PANGGIL INI 
-        // AGAR USER TIDAK MENGURANGI BARANG MELEBIHI STOK YANG TERSEDIA
-        // if (!$this->cartin->validateStock()) { // Valdasi stok
-        //     return $this->index();
-        // }
-
         // Menghitung total dari subtotal pemasukan oleh suatu user
         $total = $this->db->select_sum('subtotal')
                           ->where('id_user', $this->id_user)
