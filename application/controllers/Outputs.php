@@ -52,7 +52,7 @@ class Outputs extends MY_Controller
     public function search($page = null)
     {
         if (isset($_POST['keyword'])) {
-            $this->session->set_userdata('keyword', $this->output->post('keyword'));
+            $this->session->set_userdata('keyword', $this->input->post('keyword'));
         }
 
         $this->session->unset_userdata('time');
@@ -90,7 +90,7 @@ class Outputs extends MY_Controller
     public function search_time($page = null)
     {
         if (isset($_POST['time'])) {
-            $this->session->set_userdata('time', $this->output->post('time'));
+            $this->session->set_userdata('time', $this->input->post('time'));
         }
 
         $this->session->unset_userdata('keyword');
@@ -105,7 +105,7 @@ class Outputs extends MY_Controller
         $data['breadcrumb_path']    = "Barang Keluar / List Barang Keluar / Filter / $time";
         $data['content']            = $this->outputs->select([
                 'barang_keluar.id', 'user.nama', 
-                'barang_keluar.waktu', 'barang_keluar.total_harga'
+                'barang_keluar.waktu'
             ])
             ->join('user')
             ->like('DATE(barang_keluar.waktu)', date('Y-m-d', strtotime($time)))
