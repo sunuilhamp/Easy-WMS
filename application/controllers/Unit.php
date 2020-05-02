@@ -21,6 +21,12 @@ class Unit extends MY_Controller
 
     public function index($page = null)
     {
+        if ($this->session->userdata('role') != 'admin') { 
+            $this->session->set_flashdata('warning', 'Anda tidak memiliki akses');
+            redirect(base_url('home'));
+            return;
+        }
+
         if (!$_POST) {
             $input = (object) $this->unit->getDefaultValues();
         } else {
