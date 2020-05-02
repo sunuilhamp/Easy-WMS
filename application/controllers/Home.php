@@ -27,6 +27,23 @@ class Home extends MY_Controller
         $data['title']              = 'Easy WMS - Dashboard';
         $data['breadcrumb_title']   = "Hallo $nama 😊";
         $data['breadcrumb_path']    = 'Home / Dashboard';
+        $data['barang_masuk']       = $this->home->select([
+                                        'barang_masuk.id', 'user.nama', 
+                                        'barang_masuk.waktu'
+                                    ])
+                                    ->join('user')
+                                    ->orderBy('barang_masuk.waktu', 'DESC')
+                                    ->limit(5)
+                                    ->get();
+        $this->home->table          = "barang_keluar";
+        $data['barang_keluar']      = $this->home->select([
+                                        'barang_keluar.id', 'user.nama', 
+                                        'barang_keluar.waktu'
+                                    ])
+                                    ->join('user')
+                                    ->orderBy('barang_keluar.waktu', 'DESC')
+                                    ->limit(5)
+                                    ->get();
         $data['page']               = 'pages/home/index';
         
         $this->view($data);

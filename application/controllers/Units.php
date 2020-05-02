@@ -22,13 +22,6 @@ class Units extends MY_Controller
 
     public function index($page = null)
     {
-        $role = $this->session->userdata('role');
-        if ($role != 'admin') { 
-            $this->session->set_flashdata('warning', 'Anda tidak memiliki akses ke menu registrasi');
-            redirect(base_url('home'));
-            return;
-        }
-
         $this->session->unset_userdata('keyword');
         
         $data['title']              = 'Easy WMS - List Satuan';
