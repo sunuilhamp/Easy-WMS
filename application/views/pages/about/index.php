@@ -9,7 +9,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top img-fluid" height="890" width="593" src="<?= base_url('assets/images/about/default.jpg') ?>">
+                    <img class="card-img-top img-fluid" height="890" width="593" src="<?= base_url('assets/images/about/sunu.png') ?>">
                     <div class="card-body">
                         <h4 class="card-title">Sunu Ilham Pradika</h4>
                         <p class="card-text">17081010045</p>
