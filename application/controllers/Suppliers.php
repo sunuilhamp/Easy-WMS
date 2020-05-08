@@ -110,11 +110,11 @@ class Suppliers extends MY_Controller
     public function unique_email()
     {
         $email      = $this->input->post('email');
-        $id_user    = $this->input->post('id_user');
-        $user       = $this->suppliers->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
+        $id         = $this->input->post('id');
+        $supplier   = $this->suppliers->where('email', $email)->first(); // Akan terisi jika terdapat email yang sama
 
-        if ($user) {
-            if ($id_user == $user->id_user) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
+        if ($supplier) {
+            if ($id == $supplier->id) {  // Keperluan edit tidak perlu ganti email, jadi tidak masalah
                 return true;
             }
 
