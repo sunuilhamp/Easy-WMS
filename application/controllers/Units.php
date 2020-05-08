@@ -90,7 +90,7 @@ class Units extends MY_Controller
         }
 
         if (!$this->units->validate()) {
-            $data['title']              = 'IFKasir - Edit Satuan Barang';
+            $data['title']              = 'Easy WMS - Edit Satuan Barang';
             $data['page']               = 'pages/units/edit';
             $data['breadcrumb_title']   = 'Edit Satuan Barang';
             $data['breadcrumb_path']    = "Manajemen Barang / Edit Satuan Barang / " . $data['input']->nama;

@@ -34,7 +34,7 @@ class Unit extends MY_Controller
         }
 
         if (!$this->unit->validate()) {     // Jika validasi gagal maka arahkan ke form register lagi
-            $data['title'] = 'Tambah Satuan';
+            $data['title'] = 'Easy WMS - Tambah Satuan';
             $data['input'] = $input;
             $data['page']  = 'pages/unit/index';
             $data['breadcrumb_title'] = 'Tambah Satuan';

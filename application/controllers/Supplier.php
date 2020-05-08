@@ -35,7 +35,7 @@ class Supplier extends MY_Controller
         }
 
         if (!$this->supplier->validate()) {     // Jika validasi gagal maka arahkan ke form register lagi
-            $data['title'] = 'Register Supplier';
+            $data['title'] = 'Easy WMS - Register Supplier';
             $data['input'] = $input;
             $data['page']  = 'pages/supplier/index';
             $data['breadcrumb_title']   = 'Register Supplier';

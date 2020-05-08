@@ -100,10 +100,10 @@ class Users extends MY_Controller
         }
 
         if (!$this->users->validate()) {
-            $data['title']              = 'IFKasir - Edit Keryawan';
+            $data['title']              = 'Easy WMS - Edit Staff';
             $data['page']               = 'pages/users/edit';
-            $data['breadcrumb_title']   = 'Edit Data Karyawan';
-            $data['breadcrumb_path']    = "Manajemen Karyawan / Edit Data Karyawan / " . $data['input']->nama;
+            $data['breadcrumb_title']   = 'Edit Data Staff';
+            $data['breadcrumb_path']    = "Manajemen Staff / Edit Data Staff / " . $data['input']->nama;
 
             return $this->view($data);
         }

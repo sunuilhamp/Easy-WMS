@@ -19,7 +19,7 @@ class About extends MY_Controller
 
     public function index()
     {
-        $data['title']              = 'IFKasir - About us';
+        $data['title']              = 'Easy WMS - About us';
         $data['breadcrumb_title']   = "About us";
         $data['breadcrumb_path']    = 'Extra / About us';
         $data['page']               = 'pages/about/index';

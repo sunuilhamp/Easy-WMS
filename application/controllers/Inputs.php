@@ -100,7 +100,7 @@ class Inputs extends MY_Controller
             redirect(base_url('inputs'));
         }
 
-        $data['title']              = 'IFKasir - List Barang Masuk';
+        $data['title']              = 'Easy WMS - List Barang Masuk';
         $data['breadcrumb_title']   = "List Barang Masuk";
         $data['breadcrumb_path']    = "Barang Masuk / List Barang Masuk / Filter / $time";
         $data['content']            = $this->inputs->select([
@@ -122,9 +122,9 @@ class Inputs extends MY_Controller
 
     public function detail($id_barang_masuk)
     {
-        $data['title']              = 'IFKasir - Detail Penjualan';
-        $data['breadcrumb_title']   = "Detail Penjualan";
-        $data['breadcrumb_path']    = "Kasir / List Penjualan / Detail Penjualan / $id_barang_masuk";
+        $data['title']              = 'Easy WMS - Detail Barang Masuk';
+        $data['breadcrumb_title']   = "Detail Barang Masuk";
+        $data['breadcrumb_path']    = "Kasir / List Barang Masuk / Detail Barang Masuk / $id_barang_masuk";
         $data['page']               = 'pages/inputs/detail';
 
         $data['barang_masuk']  = $this->inputs->select([
