@@ -43,17 +43,17 @@
                                         <td class="border-top-0 px-2 py-4">
                                             <?php if ($row->role == 'admin') : ?>
                                                 <div class="popover-icon">
-                                                    <!-- Admin juga sebagai kasir -->
+                                                    <!-- Admin juga sebagai Staff -->
                                                     <button class="btn btn-primary rounded-circle btn-circle font-12" data-toggle="tooltip" data-placement="top" title="Administrator">ADM</button>
 
-                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Kasir">STF</button>
+                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Staff">STF</button>
                                                 </div>
                                             <?php else : ?>
                                                 <div class="popover-icon">
                                                     <!-- Elemen bantu -->
                                                     <button class="btn btn-white rounded-circle btn-circle font-12"></button>
 
-                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Kasir">STF</button>
+                                                    <button class="btn btn-cyan rounded-circle btn-circle font-12 popover-item" data-toggle="tooltip" data-placement="top" title="Staff">STF</button>
                                                 </div>
                                             <?php endif ?>
                                         </td>

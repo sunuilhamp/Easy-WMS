@@ -67,7 +67,7 @@
 
                 <li class="list-divider"></li>
 
-                <!-- Submemu Kasir -->
+                <!-- Submemu Barang -->
                 <li class="nav-small-cap"><span class="hide-menu">Barang Masuk</span></li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= base_url('cartin') ?>" aria-expanded="false">

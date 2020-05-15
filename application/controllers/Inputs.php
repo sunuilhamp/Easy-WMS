@@ -124,7 +124,7 @@ class Inputs extends MY_Controller
     {
         $data['title']              = 'Easy WMS - Detail Barang Masuk';
         $data['breadcrumb_title']   = "Detail Barang Masuk";
-        $data['breadcrumb_path']    = "Kasir / List Barang Masuk / Detail Barang Masuk / $id_barang_masuk";
+        $data['breadcrumb_path']    = "Barang Masuk / List Barang Masuk / Detail Barang Masuk / $id_barang_masuk";
         $data['page']               = 'pages/inputs/detail';
 
         $data['barang_masuk']  = $this->inputs->select([
