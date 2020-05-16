@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 30, 2020 at 08:42 PM
+-- Generation Time: May 16, 2020 at 02:01 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -41,9 +41,10 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `id_supplier`, `nama`, `qty`, `id_satuan`, `harga`) VALUES
-(1, 1, 'Indomie Goreng', 11, 1, 45000),
-(2, 1, 'Good Day Freeze', 15, 2, 30000),
-(3, 1, 'Es Milos', 8, 2, 5000);
+(1, 1, 'Indomie Goreng', 14, 1, 45000),
+(2, 1, 'Good Day Freeze', 37, 2, 30000),
+(3, 1, 'Es Milos', 5, 2, 5000),
+(4, 3, 'Es Nutrisari', 30, 2, 5000);
 
 -- --------------------------------------------------------
 
@@ -62,7 +63,14 @@ CREATE TABLE `barang_keluar` (
 --
 
 INSERT INTO `barang_keluar` (`id`, `id_user`, `waktu`) VALUES
-(1, 1, '2020-04-28 21:47:32');
+(1, 1, '2020-04-28 21:47:32'),
+(2, 1, '2020-05-01 04:41:59'),
+(3, 1, '2020-05-01 04:42:55'),
+(4, 1, '2020-05-01 04:55:48'),
+(5, 1, '2020-05-01 21:41:48'),
+(6, 1, '2020-05-01 23:06:34'),
+(7, 1, '2020-05-15 21:43:08'),
+(8, 1, '2020-05-15 23:35:52');
 
 -- --------------------------------------------------------
 
@@ -82,7 +90,16 @@ CREATE TABLE `barang_keluar_detail` (
 --
 
 INSERT INTO `barang_keluar_detail` (`id`, `id_barang_keluar`, `id_barang`, `qty`) VALUES
-(1, 1, 1, 5);
+(1, 1, 1, 5),
+(2, 2, 3, 1),
+(3, 2, 2, 3),
+(4, 3, 2, 2),
+(5, 3, 1, 1),
+(6, 4, 3, 2),
+(7, 5, 2, 870),
+(8, 6, 2, 1),
+(9, 7, 2, 2),
+(10, 8, 4, 30);
 
 --
 -- Triggers `barang_keluar_detail`
@@ -121,7 +138,10 @@ INSERT INTO `barang_masuk` (`id`, `id_user`, `waktu`, `total_harga`) VALUES
 (7, 1, '2020-04-30 23:36:31', 50000),
 (8, 1, '2020-04-30 23:37:06', 35000),
 (9, 1, '2020-04-30 23:37:44', 105000),
-(10, 1, '2020-05-01 01:28:29', 45000);
+(10, 1, '2020-05-01 01:28:29', 45000),
+(11, 1, '2020-05-01 21:35:07', 27000000),
+(12, 1, '2020-05-15 21:29:37', 180000),
+(13, 1, '2020-05-15 23:30:44', 300000);
 
 -- --------------------------------------------------------
 
@@ -153,7 +173,10 @@ INSERT INTO `barang_masuk_detail` (`id`, `id_barang_masuk`, `id_barang`, `qty`, 
 (11, 8, 3, 1, 5000),
 (12, 9, 2, 2, 60000),
 (13, 9, 1, 1, 45000),
-(14, 10, 1, 1, 45000);
+(14, 10, 1, 1, 45000),
+(15, 11, 2, 900, 27000000),
+(16, 12, 1, 4, 180000),
+(17, 13, 4, 60, 300000);
 
 --
 -- Triggers `barang_masuk_detail`
@@ -363,31 +386,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `barang_keluar`
 --
 ALTER TABLE `barang_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `barang_keluar_detail`
 --
 ALTER TABLE `barang_keluar_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `barang_masuk_detail`
 --
 ALTER TABLE `barang_masuk_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `keranjang_keluar`
@@ -399,7 +422,7 @@ ALTER TABLE `keranjang_keluar`
 -- AUTO_INCREMENT for table `keranjang_masuk`
 --
 ALTER TABLE `keranjang_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `satuan`
