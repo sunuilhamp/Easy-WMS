@@ -18,5 +18,5 @@ File database bisa ditemukan di /assets/db/easy_wms.sql
 | Sunu	| sunu@easywms.com	| sunu     |
 | Amir	| amir@easywms.com	| amir     |
 
-<img src="/assets/images/users.png" alt="Tabel User">
+<img src="/assets/images/users.png" alt="Tabel User" height="105">
 
