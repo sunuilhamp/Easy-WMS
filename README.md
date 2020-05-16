@@ -1,25 +1,22 @@
-# IFKasir
+# Easy WMS
 
-Aplikasi manajemen inventory, kasir dan pembukuan berbasis Web
+Aplikasi manajemen pergudangan berbasis Web
 
-File database bisa ditemukan di /assets/db/ifkasir.sql
+File database bisa ditemukan di /assets/db/easy_wms.sql
 
 ## Tampilan Dashboard
 
 <p align="center">
-  <img src="/assets/images/ifkasir.png" alt="Dashboard Screenshot">
+  <img src="/assets/images/easy-wms.png" alt="Dashboard Screenshot">
 </p>
 
 ## Cara Login
 
-|      User     |       Email      | Password |
-|:-------------:|:----------------:|:--------:|
-| Administrator | admin@admin.com  | admin    |
-| Kasir         | kasir@kasir.com  | kasir    |
-| Kasir Kedua   | kasir2@kasir.com | kasir    |
-| Kasir Keempat | kasir4@kasir.com | kasir    |
-|      ...      |        ...       |    ...   |
-| Kasir Ketujuh | kasir7@kasir.com | kasir    |
+| User	|       Email				| Password |
+|:-----:|:-----------------:|:--------:|
+| Admin	| admin@easywms.com	| admin    |
+| Sunu	| sunu@easywms.com	| sunu     |
+| Amir	| amir@easywms.com	| amir     |
 
 <img src="/assets/images/users.png" alt="Tabel User">
 
