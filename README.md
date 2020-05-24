@@ -1,6 +1,6 @@
 # Easy WMS
 
-Aplikasi manajemen pergudangan berbasis Web
+Aplikasi manajemen pergudangan berbasis web dengan menggunakan framework CodeIgniter 3
 
 File database bisa ditemukan di /assets/db/easy_wms.sql
 
